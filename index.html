@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mark Hernandez — Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Sidebar (fixed on desktop, collapsible on mobile) -->
+  <aside class="sidebar" aria-label="Primary">
+    <div class="brand">
+      <!-- Optional logo -->
+      <!-- <img src="logo.svg" alt="Mark logo" class="logo"> -->
+      <h1>Mark Hernandez</h1>
+      <p class="tagline">RL · Cybersecurity · Systems</p>
+    </div>
+
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#talks">Publications/Talks</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="downloads">
+      <h2>Downloads</h2>
+      <ul>
+        <li><a href="resume.pdf" download>Resume (PDF)</a></li>
+        <li><a href="cv.pdf" download>CV (PDF)</a></li>
+      </ul>
+    </div>
+
+    <div class="links">
+      <h2>Links</h2>
+      <ul>
+        <li><a href="https://github.com/markonbase" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/..." target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:you@example.com">Email</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main content (scrolls) -->
+  <main class="content" id="content">
+    <section id="about">
+      <h2>About</h2>
+      <p>PhD CS student focused on reinforcement learning, adversarial robustness, and transportation systems.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <article class="card">
+        <h3>Adversarial RL in SUMO</h3>
+        <p>Multi-agent attacker/victim training with PPO/A2C; pressure rewards; curriculum on ε-action noise.</p>
+        <p>
+          <a href="https://github.com/markonbase/adversarial-rl">Repo</a> ·
+          <a href="#" aria-disabled="true">Demo</a>
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>FLShield</h3>
+        <p>Efficient defense strategies for dynamic attacks in federated learning (Flower).</p>
+        <p>
+          <a href="https://github.com/markonbase/flshield">Repo</a> ·
+          <a href="slides.pdf">Slides</a>
+        </p>
+      </article>
+    </section>
+
+    <section id="talks">
+      <h2>Publications & Talks</h2>
+      <ul>
+        <li>Talk: Robust RL for Traffic Signals (2025)</li>
+        <li>Paper: Efficient Defenses for Dynamic FL Attacks (2025)</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Open to collaborations and internships. Best way to reach me: <a href="mailto:you@example.com">email</a>.</p>
+    </section>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Mark Hernandez · Built with GitHub Pages</p>
+    </footer>
+  </main>
+
+  <script>
+    // tiny helper for footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
