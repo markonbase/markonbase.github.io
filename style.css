@@ -40,6 +40,13 @@ body{
   overflow-y: auto;
 }
 
+.logo {
+  display: block;
+  max-width: 100%;   /* logo never wider than the sidebar */
+  height: auto;      /* keeps aspect ratio */
+  margin: 0 auto 12px; /* centers it */
+}
+
 .content{
   margin-left: var(--sidebar-w);
   padding: 40px 28px;
@@ -106,3 +113,4 @@ section{ margin-bottom: 36px; }
 @media (prefers-reduced-motion: reduce){
   *{ animation:none!important; transition:none!important; }
 }
+
