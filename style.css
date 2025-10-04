@@ -59,15 +59,16 @@ body{
 .tagline{ margin:0 0 18px; color:var(--muted); }
 
 .nav{
-  display:flex; flex-direction:column; gap:8px;
-  margin: 12px 0 18px;
-}
-.nav a{
-  color:var(--text);
-  text-decoration:none;
-  padding:8px 10px;
-  border-radius:10px;
-}
+    display: block !important;     /* disable flex on mobile */
+    text-align: center !important; /* center each wrapped line */
+    margin: 16px 0 18px;
+  }
+  .nav a{
+    display: inline-block !important;  /* shrink to content */
+    margin: 4px 8px;
+    width: auto !important;            /* never full width */
+    flex: 0 0 auto !important;         /* ignore any flex settings */
+  }
 .nav a:hover, .nav a:focus{ background:rgba(127,127,127,.12); outline:none; }
 
 .downloads h2, .links h2{
@@ -123,6 +124,7 @@ section{ margin-bottom: 36px; }
 @media (prefers-reduced-motion: reduce){
   *{ animation:none!important; transition:none!important; }
 }
+
 
 
 
