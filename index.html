@@ -81,23 +81,33 @@ layout: none
       .brand{ align-items:center; text-align:center }
 
        .nav{
-        display:flex;            /* use flex, not grid/block */
-        flex-direction: row;     /* reset from column */
-        flex-wrap: wrap;         /* allow wrapping */
-        justify-content: center; /* center each wrapped row */
-        align-items: center;
-        gap: 10px 18px;          /* row/column spacing */
-        width: 100%;
-        margin: 16px 0 18px;
-        padding: 0;
-        text-align: center;
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;  /* center rows */
+        align-items:center;
+        gap:10px 18px;           /* row + column spacing */
+        width:100%;
+        margin:16px 0 18px;
+        padding:0;
+        text-align:center;
       }
+    
       .nav a{
-        display: inline-flex;    /* shrink to content; no full-width items */
-        flex: 0 0 auto;          /* don’t stretch */
-        width: auto;
-        padding: 6px 10px;
-        margin: 0;               /* spacing comes from gap */
+        display:inline-flex;
+        flex:0 0 auto;
+        width:auto;
+        padding:6px 10px;
+        border-radius:10px;
+        text-decoration:none !important;  /* remove underlines */
+        color:var(--text) !important;     /* same color as sidebar text */
+        background:none;                  /* remove any default link styling */
+      }
+    
+      .nav a:hover,
+      .nav a:focus{
+        background:rgba(127,127,127,.12);
+        outline:none;
+        text-decoration:none;             /* keep underline off on hover */
       }
     }
 
@@ -180,4 +190,5 @@ layout: none
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
+
 
