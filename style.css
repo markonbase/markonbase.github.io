@@ -40,7 +40,7 @@ body{
   overflow-y: auto;
 }
 
-.logo {
+.logo{
   display: block;
   max-width: 100%;   /* logo never wider than the sidebar */
   height: auto;      /* keeps aspect ratio */
@@ -113,4 +113,5 @@ section{ margin-bottom: 36px; }
 @media (prefers-reduced-motion: reduce){
   *{ animation:none!important; transition:none!important; }
 }
+
 
