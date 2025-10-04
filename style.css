@@ -104,25 +104,18 @@ section{ margin-bottom: 36px; }
   }
   .content{ margin:0; padding:24px 18px; }
   .brand{ display:flex; align-items:center; gap:12px; }
+  @media (max-width: 860px){
   .nav{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;   /* center each wrapped line */
-    align-content:center;     /* pack wrapped lines toward the center */
-    gap:10px;
-    /*text-align:center;        /* fallback for inline content */
-    width:100%;
+    display:block;               /* disable flex on mobile */
+    text-align:center;           /* center wrapped inline items */
+    margin:16px 0 18px;
   }
-
   .nav a{
-    display:inline-flex;      /* shrink to content, not 100% width */
-    flex:0 0 auto;            /* don't stretch */
-    text-align:center;
+    display:inline-block;        /* behave like words in a centered paragraph */
     padding:6px 10px;
-    /* make sure nothing forces full width */
-    width:auto;
-    max-width:none;
+    margin:4px 6px;              /* spacing between pills */
   }
+}
 }
 
 /* Accessibility niceties */
@@ -130,6 +123,7 @@ section{ margin-bottom: 36px; }
 @media (prefers-reduced-motion: reduce){
   *{ animation:none!important; transition:none!important; }
 }
+
 
 
 
