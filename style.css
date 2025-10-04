@@ -5,7 +5,7 @@
   --text: #e7ebf0;
   --muted: #97a2b0;
   --link: #79b8ff;
-  --accent: #21c55d; /* optional accent for focus rings */
+  --accent: #21c55d;
   --sidebar-w: 300px;
   --radius: 14px;
 }
@@ -40,37 +40,43 @@ body{
   overflow-y: auto;
 }
 
-.logo{
-  display: block;
-  max-height: 150px;
-  max-width: 100%;   /* logo never wider than the sidebar */
-  height: auto;      /* keeps aspect ratio */
-  margin: 0 auto 12px; /* centers it */
-}
-
 .content{
   margin-left: var(--sidebar-w);
   padding: 40px 28px;
   max-width: 1024px;
 }
 
+/* Logo (responsive) */
+.logo{
+  display:block;
+  width:100%;      /* fill the inner width of the sidebar */
+  height:auto;     /* keep aspect ratio */
+  max-width:100%;  /* never overflow */
+  /* optional cap – remove if you want it larger on big screens */
+  max-inline-size: 240px;
+  margin: 0 auto 12px;
+}
+
 /* Sidebar content */
 .brand h1{ margin:0 0 6px; font-size:1.5rem; letter-spacing:.2px; }
 .tagline{ margin:0 0 18px; color:var(--muted); }
 
+/* Nav (desktop defaults) */
 .nav{
-    display: block !important;     /* disable flex on mobile */
-    text-align: center !important; /* center each wrapped line */
-    margin: 16px 0 18px;
-  }
-  .nav a{
-    display: inline-block !important;  /* shrink to content */
-    margin: 4px 8px;
-    width: auto !important;            /* never full width */
-    flex: 0 0 auto !important;         /* ignore any flex settings */
-  }
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin: 12px 0 18px;
+}
+.nav a{
+  color:var(--text);
+  text-decoration:none;
+  padding:8px 10px;
+  border-radius:10px;
+}
 .nav a:hover, .nav a:focus{ background:rgba(127,127,127,.12); outline:none; }
 
+/* Lists & links */
 .downloads h2, .links h2{
   font-size:.95rem; margin:18px 0 8px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em;
 }
@@ -104,19 +110,19 @@ section{ margin-bottom: 36px; }
     border-radius: 0 0 var(--radius) var(--radius);
   }
   .content{ margin:0; padding:24px 18px; }
-  .brand{ display:flex; align-items:center; gap:12px; }
-  @media (max-width: 860px){
+  .brand{ display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; }
+
+  /* Bulletproof centering for wrapped nav links */
   .nav{
-    display:block;               /* disable flex on mobile */
-    text-align:center;           /* center wrapped inline items */
+    display:block;            /* stop flex so wrap lines can center perfectly */
+    text-align:center;        /* center each wrapped line */
     margin:16px 0 18px;
   }
   .nav a{
-    display:inline-block;        /* behave like words in a centered paragraph */
+    display:inline-block;     /* size to content */
+    margin:4px 8px;           /* even spacing between pills */
     padding:6px 10px;
-    margin:4px 6px;              /* spacing between pills */
   }
-}
 }
 
 /* Accessibility niceties */
@@ -124,12 +130,3 @@ section{ margin-bottom: 36px; }
 @media (prefers-reduced-motion: reduce){
   *{ animation:none!important; transition:none!important; }
 }
-
-
-
-
-
-
-
-
-
