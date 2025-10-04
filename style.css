@@ -107,15 +107,24 @@ section{ margin-bottom: 36px; }
   .nav{
     display:flex;
     flex-wrap:wrap;
-    flex-direction:row;
-    justify-content:center;     /* centers horizontally */
-    align-items:center;          /* vertically aligns nicely */
+    justify-content:center;   /* center each wrapped line */
+    align-content:center;     /* pack wrapped lines toward the center */
     gap:10px;
-    text-align:center;
-    margin:16px 0 18px;
+    text-align:center;        /* fallback for inline content */
+    width:100%;
   }
 
-  .nav a{ padding:6px 10px; }
+  .nav a{
+    display:inline-flex;      /* shrink to content, not 100% width */
+    align-items:center;
+    justify-content:center;   /* center the text inside the pill */
+    flex:0 0 auto;            /* don't stretch */
+    text-align:center;
+    padding:6px 10px;
+    /* make sure nothing forces full width */
+    width:auto;
+    max-width:none;
+  }
 }
 
 /* Accessibility niceties */
@@ -123,6 +132,7 @@ section{ margin-bottom: 36px; }
 @media (prefers-reduced-motion: reduce){
   *{ animation:none!important; transition:none!important; }
 }
+
 
 
 
