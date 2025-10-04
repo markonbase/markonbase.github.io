@@ -104,7 +104,17 @@ section{ margin-bottom: 36px; }
   }
   .content{ margin:0; padding:24px 18px; }
   .brand{ display:flex; align-items:center; gap:12px; }
-  .nav{ flex-wrap:wrap; flex-direction:row; gap:10px; }
+  .nav{
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:row;
+    justify-content:center;     /* centers horizontally */
+    align-items:center;          /* vertically aligns nicely */
+    gap:10px;
+    text-align:center;
+    margin:16px 0 18px;
+  }
+
   .nav a{ padding:6px 10px; }
 }
 
@@ -113,6 +123,7 @@ section{ margin-bottom: 36px; }
 @media (prefers-reduced-motion: reduce){
   *{ animation:none!important; transition:none!important; }
 }
+
 
 
 
