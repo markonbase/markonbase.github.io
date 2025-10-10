@@ -100,6 +100,25 @@ layout: none
       flex: 1 1 55%;
     }
 
+    /* ---------- SMALL OVERVIEW IMAGE BELOW TEXT ---------- */
+    .overview-img-small {
+      display: block;
+      margin: 16px auto 8px auto;  /* centers image with spacing */
+      width: 70%;                 /* limits image width */
+      max-width: 400px;           /* prevents it from getting too large */
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid rgba(127,127,127,.2);
+      object-fit: contain;
+      opacity: 0.95;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    
+    .overview-img-small:hover {
+      transform: scale(1.02);
+      opacity: 1;
+    }
+
     /* ---------- MOBILE STACK ---------- */
     @media (max-width: 700px) {
       .hero-content {
@@ -131,6 +150,14 @@ layout: none
     /* ===================== MOBILE TOP BAR ===================== */
     .mobile-header{ display:none; }
 
+    /* ---------- MOBILE ADJUSTMENT ---------- */
+    @media (max-width: 700px) {
+      .overview-img-small {
+        width: 85%;
+        max-width: 320px;
+      }
+    }
+    
     @media (max-width:860px){
       /* Top bar visible on mobile */
       .mobile-header{
