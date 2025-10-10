@@ -92,6 +92,18 @@ layout: none
       text-decoration:underline;
     }
 
+    /* Nav (desktop: vertical list, centered) */
+    @media (min-width:861px){
+      .nav{
+        display:flex; flex-direction:column; align-items:center; gap:8px;
+        margin:12px 0 18px; text-align:center;
+      }
+      .nav a{
+        display:inline-block; color:var(--text); text-decoration:none;
+        padding:8px 10px; border-radius:10px;
+      }
+    }
+    
     /* Footer */
     .footer{ color:var(--muted); margin-top:40px }
 
