@@ -103,8 +103,9 @@ layout: none
     /* ---------- RESPONSIVE OVERVIEW IMAGE BELOW TEXT ---------- */
     .overview-img-small {
       display: block;
-      margin: 16px auto 8px auto;
-      width: clamp(180px, 60%, 380px); /* responsive width range */
+      margin: 14px auto 6px auto;
+      width: clamp(280px, 60%, 680px); /* mobile/tablet default */
+      max_width: 100%;
       height: auto;
       border-radius: 10px;
       border: 1px solid rgba(127,127,127,.2);
@@ -114,6 +115,25 @@ layout: none
     }
     
     /* ---------- RESPONSIVE BEHAVIOR ---------- */
+
+    /* Base: keep it sensible and responsive */
+    /* Make it bigger on desktop */
+    @media (min-width: 1024px){
+      .overview-img{
+        width: clamp(420px, 70%, 900px);   /* larger target range on desktop */
+        max-width: 900px;                  /* hard ceiling so it doesn’t explode on ultrawide */
+      }
+    }
+    
+    /* Optional: slightly larger on very big screens */
+    @media (min-width: 1440px){
+      .overview-img{
+        width: clamp(480px, 60%, 1000px);
+        max-width: 1000px;
+      }
+    }
+
+    
     @media (min-width: 1400px) {
       .overview-img-small {
         width: 40%; /* smaller on ultra-wide monitors */
@@ -309,8 +329,8 @@ layout: none
       <p>
         A neural model that estimates the probability a team will win at any point in a game. It’s trained on
         completed games and designed to produce real-time, broadcast-style indicators similar to ESPN’s on-screen meter.
-        <img src="brief-overview.png" alt="High-level overview of model" class="overview-img-small" />
       </p>
+      <img src="brief-overview.png" alt="High-level overview of model" class="overview-img-small" />
     </section>
 
     <!-- Data -->
