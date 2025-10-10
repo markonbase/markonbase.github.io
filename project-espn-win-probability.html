@@ -110,6 +110,16 @@ layout: none
       max-width: 700px;   /* CAP: image stops growing past 700px */
     }
 
+    /* Make inline links match sidebar download/link style */
+    .inline-link{
+      color: var(--link);
+      text-decoration: none;
+    }
+    .inline-link:hover,
+    .inline-link:focus{
+      text-decoration: none; /* keep it the same on hover */
+    }
+
     @media (max-width:900px){
       .overview-img-small{
         width:70%;
@@ -139,6 +149,9 @@ layout: none
       padding:18px 20px;
       margin:16px 0;
     }
+
+    .card a { color: var(--link); text-decoration: none; }
+    .card a:hover, .card a:focus { text-decoration: none; }
 
     .footer{ color:var(--muted); margin-top:40px }
 
@@ -260,7 +273,7 @@ layout: none
     <section class="card">
       <h2>Data</h2>
       <ul>
-        Used <a href="https://www.retrosheet.org/">Retrosheet</a>, an open-source and volunteer-based organization, for all data in this project.
+        Used <a class="inline-link" href="https://www.retrosheet.org/">Retrosheet</a>, an open-source and volunteer-based organization, for all data in this project.
         <img src="retro-logo.png" alt="Retrosheet logo" class="overview-img-small" />
         <li>
           <strong>Training:</strong> Full, completed games with per-game player stats current for each respective game.
