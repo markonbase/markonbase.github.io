@@ -119,15 +119,15 @@ layout: none
     /* Base: keep it sensible and responsive */
     /* Make it bigger on desktop */
     @media (min-width: 1024px){
-      .overview-img{
+      .overview-img-small{
         width: clamp(420px, 70%, 900px);   /* larger target range on desktop */
         max-width: 900px;                  /* hard ceiling so it doesn’t explode on ultrawide */
       }
     }
     
     /* Optional: slightly larger on very big screens */
-    @media (min-width: 1440px){
-      .overview-img{
+    @media (min-width: 2000px){
+      .overview-img-small{
         width: clamp(480px, 60%, 1000px);
         max-width: 1000px;
       }
@@ -137,7 +137,7 @@ layout: none
     @media (min-width: 1400px) {
       .overview-img-small {
         width: 40%; /* smaller on ultra-wide monitors */
-        max-width: 420px;
+        max-width: 480px;
       }
     }
     
