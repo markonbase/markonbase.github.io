@@ -130,6 +130,29 @@ layout: none
       margin: 4px 0 8px;
       color: var(--muted);
     }
+
+    /* Make the whole card clickable */
+    .card-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease;
+    }
+    
+    .card-link:hover .card,
+    .card-link:focus .card {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      cursor: pointer;
+    }
+    
+    /* Optional: subtle shadow for hover */
+    .card {
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-link:hover .card {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
     
     /* Mobile: stack image on top */
     @media (max-width: 640px) {
@@ -243,16 +266,15 @@ layout: none
   <main class="content" id="content">
     <section id="projects">
       <h2>Projects</h2>
-
-      <article class="card">
-        <img src="images/espn-project-thumb.jpg" alt="ESPN Win Probability" class="card-img" />
-        <div class="card-content">
-          <h3>ESPN-Style Win Probability</h3>
-          <p>Inspired by live broadcast win probability indicators. The model learns from completed games using in-game stats, and predicts outcomes for in-progress scenarios using pre-game player data.</p>
-          <p><a href="project-espn-win-probability.html">View Project →</a></p>
-        </div>
-      </article>
-
+      <a href="project-espn-win-probability.html" class="card-link">
+        <article class="card">
+          <img src="images/espn-project-thumb.jpg" alt="ESPN Win Probability" class="card-img" />
+          <div class="card-content">
+            <h3>ESPN-Style Win Probability</h3>
+            <p>Inspired by live broadcast win probability indicators. The model learns from completed games using in-game stats, and predicts outcomes for in-progress scenarios using pre-game player data.</p>
+          </div>
+        </article>
+      </a>
     </section>
 
     <footer class="footer">
