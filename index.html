@@ -129,17 +129,7 @@ layout: none
         text-decoration:none;             /* keep underline off on hover */
       }
     }
-
-    /* two-column default */
-    .layout { display:flex; }
     
-    /* mobile: stack with HERO FIRST */
-    @media (max-width:860px){
-      .layout { display:flex; flex-direction:column; }
-      .content { order:-1; }   /* move main content above the sidebar */
-    }
-
-
     /* Accessibility */
     :focus-visible{ outline:2px solid var(--accent); outline-offset:2px }
     @media (prefers-reduced-motion: reduce){ *{ animation:none!important; transition:none!important } }
@@ -209,6 +199,7 @@ layout: none
 
 </body>
 </html>
+
 
 
 
