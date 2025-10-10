@@ -130,6 +130,15 @@ layout: none
       }
     }
 
+    /* two-column default */
+    .layout { display:flex; }
+    
+    /* mobile: stack with HERO FIRST */
+    @media (max-width:860px){
+      .layout { display:flex; flex-direction:column; }
+      .content { order:-1; }   /* move main content above the sidebar */
+    }
+
 
     /* Accessibility */
     :focus-visible{ outline:2px solid var(--accent); outline-offset:2px }
@@ -137,6 +146,7 @@ layout: none
   </style>
 </head>
 <body>
+  <div class="layout">
   <aside class="sidebar" aria-label="Primary">
     <div class="brand">
       <img src="logo.png" alt="Logo" class="logo" />
@@ -179,12 +189,27 @@ layout: none
       <p><a href="#projects" style="color: var(--link); text-decoration:none;">View Projects ↓</a></p>
     </section>
 </main>
+</div>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
+  <script>
+    // Prevent the browser from restoring an old scroll position
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.addEventListener('pageshow', function (e) {
+      // If coming from bfcache, force to top
+      if (e.persisted && !location.hash) window.scrollTo(0, 0);
+    });
+    window.addEventListener('load', function () {
+      if (!location.hash) window.scrollTo(0, 0);
+    });
+</script>
 
 </body>
 </html>
+
 
 
 
