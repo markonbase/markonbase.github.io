@@ -1,0 +1,181 @@
+---
+layout: none
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — Mark Hernandez</title>
+  <style>
+    /* Base variables */
+    :root{
+      --bg:#0b0d10; --panel:#11141a; --text:#e7ebf0; --muted:#97a2b0; --link:#79b8ff; --accent:#21c55d;
+      --sidebar-w:300px; --radius:14px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f7f9fc; --panel:#fff; --text:#0c1116; --muted:#48556a; --link:#0066cc; }
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; }
+    body{
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text); background:var(--bg);
+    }
+
+    /* Layout */
+    .sidebar{
+      position:fixed; inset:0 auto 0 0; width:var(--sidebar-w);
+      padding:12px 18px; background:var(--panel);
+      border-right:1px solid rgba(127,127,127,.2);
+      overflow-y:auto;
+    }
+    .content{ margin-left:var(--sidebar-w); padding:40px 28px; max-width:1024px; }
+
+    /* Logo & Brand */
+    .brand{
+      display:flex; flex-direction:column; align-items:center; text-align:center; margin:0; padding:0;
+    }
+    .brand .logo{
+      display:block; width:100%; height:auto; max-width:240px; margin:0 0 6px 0;
+    }
+    .brand h1{ margin:0 0 6px; font-size:1.5rem }
+    .tagline{ margin:0 0 18px; color:var(--muted) }
+
+    /* Navigation */
+    .nav{
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      margin:12px 0 18px; text-align:center;
+    }
+    .nav a{
+      display:inline-block;
+      color:var(--text);
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:10px;
+      transition:background .2s ease, color .2s ease;
+    }
+    .nav a:hover,
+    .nav a:focus{
+      background:rgba(127,127,127,.12);
+      outline:none;
+    }
+    .nav a.active{
+      color:var(--accent);
+      border-bottom:2px solid var(--accent);
+      padding-bottom:6px;
+    }
+
+    /* Headings & cards */
+    h2{ margin:0 0 12px; font-size:1.6rem }
+    section{ margin-bottom:36px }
+    .card{
+      background:var(--panel);
+      border:1px solid rgba(127,127,127,.2);
+      border-radius:var(--radius);
+      padding:18px 20px;
+      margin:16px 0;
+      transition:border-color .2s ease, transform .2s ease;
+    }
+    .card:hover{
+      border-color:var(--accent);
+      transform:translateY(-2px);
+    }
+    .card h3{ margin:0 0 8px; font-size:1.2rem }
+    .card p{ margin:4px 0 8px; color:var(--muted) }
+    .card a{
+      color:var(--link);
+      text-decoration:none;
+    }
+    .card a:hover{
+      text-decoration:underline;
+    }
+
+    /* Footer */
+    .footer{ color:var(--muted); margin-top:40px }
+
+    /* Mobile */
+    @media (max-width:860px){
+      .sidebar{
+        position:static; width:auto;
+        border-right:none; border-bottom:1px solid rgba(127,127,127,.2);
+        border-radius:0 0 var(--radius) var(--radius);
+      }
+      .content{ margin:0; padding:24px 18px }
+      .nav{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:10px 18px;
+      }
+    }
+
+    :focus-visible{ outline:2px solid var(--accent); outline-offset:2px }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar" aria-label="Primary">
+    <div class="brand">
+      <img src="logo.png" alt="Logo" class="logo" />
+      <h1>Mark Hernandez</h1>
+      <p class="tagline">Transportation · Deep Learning · Cybersecurity</p>
+    </div>
+
+    <nav class="nav">
+      <a href="index.html#home">Home</a>
+      <a href="#about">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="#presentations">Presentations/Talks</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="downloads">
+      <h2 style="font-size:.95rem; margin:18px 0 8px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em">Downloads</h2>
+      <ul style="list-style:none; margin:0; padding:0">
+        <li><a href="resume.pdf" download style="color:var(--link); text-decoration:none">Resume (PDF)</a></li>
+        <li><a href="cv.pdf" download style="color:var(--link); text-decoration:none">CV (PDF)</a></li>
+      </ul>
+    </div>
+
+    <div class="links">
+      <h2 style="font-size:.95rem; margin:18px 0 8px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em">Links</h2>
+      <ul style="list-style:none; margin:0; padding:0">
+        <li><a href="https://github.com/markonbase" target="_blank" rel="noopener" style="color:var(--link); text-decoration:none">GitHub</a></li>
+        <li><a href="mailto:markherna05@gmail.com" style="color:var(--link); text-decoration:none">Email</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <article class="card">
+        <h3>ESPN-Style Win Probability</h3>
+        <p>Inspired by live broadcast win probability indicators. The model learns from completed games using in-game stats, and predicts outcomes for in-progress scenarios using pre-game player data.</p>
+        <p><a href="project-espn-win-probability.html">View Project →</a></p>
+      </article>
+
+      <article class="card">
+        <h3>Adversarial RL for Traffic Signals</h3>
+        <p>Examines how adversarial reinforcement learning can disrupt and improve adaptive traffic control systems using SUMO-based multi-agent environments.</p>
+        <p><a href="project-traffic-rl.html">View Project →</a></p>
+      </article>
+
+      <article class="card">
+        <h3>FLShield: Federated Learning Defense</h3>
+        <p>Proposes a computationally lightweight defense mechanism against dynamic attacks in federated learning, enhancing edge robustness and privacy.</p>
+        <p><a href="project-flshield.html">View Project →</a></p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Mark Hernandez · Built with GitHub Pages</p>
+    </footer>
+  </main>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
