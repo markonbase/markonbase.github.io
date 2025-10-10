@@ -92,6 +92,59 @@ layout: none
       text-decoration:underline;
     }
 
+    /* Card layout with image on left */
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--panel);
+      border: 1px solid rgba(127,127,127,.2);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin: 16px 0;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    
+    /* Image styling */
+    .card-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    
+    /* Text content on right */
+    .card-content {
+      flex: 1;
+    }
+    .card-content h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+    .card-content p {
+      margin: 4px 0 8px;
+      color: var(--muted);
+    }
+    
+    /* Mobile: stack image on top */
+    @media (max-width: 640px) {
+      .card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .card-img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+      }
+    }
+
+
     /* Footer */
     .footer{ color:var(--muted); margin-top:40px }
 
@@ -192,22 +245,14 @@ layout: none
       <h2>Projects</h2>
 
       <article class="card">
-        <h3>ESPN-Style Win Probability</h3>
-        <p>Inspired by live broadcast win probability indicators. The model learns from completed games using in-game stats, and predicts outcomes for in-progress scenarios using pre-game player data.</p>
-        <p><a href="project-espn-win-probability.html">View Project →</a></p>
+        <img src="images/espn-project-thumb.jpg" alt="ESPN Win Probability" class="card-img" />
+        <div class="card-content">
+          <h3>ESPN-Style Win Probability</h3>
+          <p>Inspired by live broadcast win probability indicators. The model learns from completed games using in-game stats, and predicts outcomes for in-progress scenarios using pre-game player data.</p>
+          <p><a href="project-espn-win-probability.html">View Project →</a></p>
+        </div>
       </article>
 
-      <article class="card">
-        <h3>Adversarial RL for Traffic Signals</h3>
-        <p>Examines how adversarial reinforcement learning can disrupt and improve adaptive traffic control systems using SUMO-based multi-agent environments.</p>
-        <p><a href="project-traffic-rl.html">View Project →</a></p>
-      </article>
-
-      <article class="card">
-        <h3>FLShield: Federated Learning Defense</h3>
-        <p>Proposes a computationally lightweight defense mechanism against dynamic attacks in federated learning, enhancing edge robustness and privacy.</p>
-        <p><a href="project-flshield.html">View Project →</a></p>
-      </article>
     </section>
 
     <footer class="footer">
