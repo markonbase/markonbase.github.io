@@ -130,110 +130,48 @@ layout: none
       }
     }
 
-    /* Submenu (Projects hover pop-out) */
+   /* Submenu (Projects inside static sidebar) */
 .nav .has-submenu {
+  width: 100%;
+  text-align: center;
   position: relative;
 }
+
 .nav .submenu-toggle {
   display: inline-block;
-  color: var(--text);
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-/* Pop-out container */
-.nav .submenu {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  margin-left: 10px;
-  min-width: 240px;
-  background: var(--panel);
-  border: 1px solid rgba(127,127,127,.2);
-  border-radius: 12px;
-  padding: 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,.25);
-  display: none;           /* hidden by default */
-  z-index: 50;
-}
-
-/* Show on hover/focus (desktop) */
-.nav .has-submenu:hover .submenu,
-.nav .has-submenu:focus-within .submenu {
-  display: block;
-}
-
-/* Submenu items */
-.submenu a {
-  display: block;
-  color: var(--text);
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 8px;
-  white-space: nowrap;
-}
-.submenu a:hover,
-.submenu a:focus {
-  background: rgba(127,127,127,.12);
-  outline: none;
-}
-
-/* Mobile: fall back to inline list below “Projects” */
-@media (max-width: 860px){
-  .nav .has-submenu { width: 100%; }
-  .nav .submenu {
-    position: static;
-    display: none;           /* toggled via JS on mobile */
-    margin: 6px 0 0 0;
-    box-shadow: none;
-    border-radius: 10px;
-  }
-  .nav .has-submenu.open .submenu { display: block; }
-  .nav .submenu-toggle {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-    /* Sidebar dropdown stays within the column */
-.nav .has-submenu {
   width: 100%;
-  position: relative;
-  text-align: center;
-}
-
-.nav .submenu-toggle {
-  display: block;
-  width: 100%;
+  color: var(--text);
   background: none;
   border: none;
-  color: var(--text);
-  font: inherit;
+  text-decoration: none;
   padding: 8px 10px;
   border-radius: 10px;
   cursor: pointer;
+  font: inherit;
   text-align: center;
 }
 
+/* Submenu stays within the sidebar */
 .nav .submenu {
   display: none;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   background: var(--panel);
-  border-radius: 10px;
   border: 1px solid rgba(127,127,127,.2);
+  border-radius: 10px;
   margin-top: 6px;
   padding: 6px 0;
+  position: relative; /* crucial: relative, not absolute */
+  z-index: 1;
 }
 
 .nav .submenu a {
   display: block;
+  width: 90%;
   color: var(--text);
   text-decoration: none;
-  padding: 6px 12px;
-  width: 90%;
+  padding: 6px 10px;
   border-radius: 8px;
 }
 
@@ -242,8 +180,9 @@ layout: none
   background: rgba(127,127,127,.12);
 }
 
-/* Show submenu when parent is hovered (desktop) */
-.has-submenu:hover .submenu {
+/* Show on hover (desktop) */
+.nav .has-submenu:hover .submenu,
+.nav .has-submenu:focus-within .submenu {
   display: flex;
 }
 
@@ -272,13 +211,12 @@ layout: none
       <a href="index.html#home">Home</a>
       <a href="#about">About</a>
     
-      <!-- Projects dropdown (inside column) -->
       <div class="has-submenu">
-        <button class="submenu-toggle">Projects ▾</button>
-        <div class="submenu">
-          <a href="project-espn-win-probability.html">ESPN-Style Win Probability</a>
-          <a href="project-traffic-rl.html">Adversarial RL for Traffic Signals</a>
-          <a href="project-flshield.html">FLShield — Federated Learning Defense</a>
+        <button class="submenu-toggle" aria-haspopup="true" aria-expanded="false">Projects ▾</button>
+        <div class="submenu" role="menu" aria-label="Projects submenu">
+          <a role="menuitem" href="project-espn-win-probability.html">ESPN-Style Win Probability</a>
+          <a role="menuitem" href="project-traffic-rl.html">Adversarial RL for Traffic Signals</a>
+          <a role="menuitem" href="project-flshield.html">FLShield — Federated Learning Defense</a>
         </div>
       </div>
     
@@ -304,53 +242,14 @@ layout: none
     </div>
   </aside>
 
-  <main class="content" id="content">
-    <section id="home">
+ <main class="content">
+    <section class="hero" id="home">
       <h2>Mark Hernandez</h2>
       <p>PhD Student · Computer Science</p>
-      <p>Exploring Reinforcement Learning, AI Security, and Transportation Systems.</p>
-      <p><a href="#projects">View Projects ↓</a></p>
+      <p>Exploring Reinforcement Learning, Cybersecurity, and Transportation Systems.</p>
+      <p><a href="#projects" style="color: var(--link); text-decoration:none;">View Projects ↓</a></p>
     </section>
-    
-    <section id="about">
-      <h2>About</h2>
-      <p>About me content here.</p>
-      <p>Minimal two-column layout: fixed sidebar (left), scrolling content (right).</p>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-    
-      <article class="card">
-        <h3>ESPN-Style Win Probability</h3>
-        <p>Inspired by live broadcast indicators; trained on completed games, evaluated on mid/late snapshots using pre-game stats.</p>
-        <p><a href="project-espn-win-probability.html">Project page</a></p>
-      </article>
-    
-      <!-- keep your other cards -->
-      <article class="card">
-        <h3>Project 2</h3>
-        <p>Project 2 text</p>
-        <p><a href="#">Repo</a></p>
-      </article>
-    </section>
-
-    <section id="presentations">
-      <h2>Publications & Talks</h2>
-      <ul>
-        <li>Presentation 1</li>
-      </ul>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p><a href="mailto:markherna05@gmail.com">markherna05@gmail.com</a></p>
-    </section>
-
-    <footer class="footer">
-      <p>© <span id="year"></span> Mark Hernandez · Built with GitHub Pages</p>
-    </footer>
-  </main>
+</main>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
@@ -393,6 +292,7 @@ layout: none
 </script>
 </body>
 </html>
+
 
 
 
