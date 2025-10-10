@@ -98,17 +98,55 @@ layout: none
     /* Mobile */
     @media (max-width:860px){
       .sidebar{
-        position:static; width:auto;
-        border-right:none; border-bottom:1px solid rgba(127,127,127,.2);
+        position:static;
+        width:auto;
+        border-right:none;
+        border-bottom:1px solid rgba(127,127,127,.2);
         border-radius:0 0 var(--radius) var(--radius);
       }
-      .content{ margin:0; padding:24px 18px }
+    
+      .content{
+        margin:0;
+        padding:24px 18px;
+      }
+    
+      .brand{
+        align-items:center;
+        text-align:center;
+      }
+    
+      /* Centered and wrapping nav (matches home page) */
       .nav{
-        flex-wrap:wrap;
-        justify-content:center;
-        gap:10px 18px;
+        display:flex;
+        flex-wrap:wrap;            /* allow wrapping into multiple lines */
+        justify-content:center;    /* center each row */
+        align-items:center;
+        gap:10px 18px;             /* row and column spacing */
+        width:100%;
+        margin:16px 0 18px;
+        padding:0;
+        text-align:center;
+      }
+    
+      .nav a{
+        display:inline-flex;
+        flex:0 0 auto;
+        width:auto;
+        padding:6px 10px;
+        border-radius:10px;
+        text-decoration:none !important;
+        color:var(--text) !important;
+        background:none;
+      }
+    
+      .nav a:hover,
+      .nav a:focus{
+        background:rgba(127,127,127,.12);
+        outline:none;
+        text-decoration:none;
       }
     }
+
 
     :focus-visible{ outline:2px solid var(--accent); outline-offset:2px }
   </style>
