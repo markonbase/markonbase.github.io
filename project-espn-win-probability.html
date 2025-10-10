@@ -102,36 +102,29 @@ layout: none
 
     /* ---------- RESPONSIVE OVERVIEW IMAGE BELOW TEXT ---------- */
     .overview-img-small {
-      display: block;
-      margin: 14px auto 6px auto;
-      width: clamp(280px, 60%, 680px); /* mobile/tablet default */
-      max_width: 100%;
-      height: auto;
-      border-radius: 10px;
-      border: 1px solid rgba(127,127,127,.2);
-      object-fit: contain;
-      opacity: 0.95;
-      transition: transform 0.25s ease, opacity 0.25s ease;
+          display:block;
+      margin:14px auto 6px;
+      height:auto;
+      border-radius:10px;
+      border:1px solid rgba(127,127,127,.2);
+      object-fit:contain;
+      opacity:.95;
+    
+      /* grow with screen, but never overflow content */
+      width: min(1100px, 80vw, calc(100vw - var(--sidebar-w) - 140px));
+      max-width: 100%;
     }
     
     /* ---------- RESPONSIVE BEHAVIOR ---------- */
 
     /* Base: keep it sensible and responsive */
     /* Make it bigger on desktop */
-    @media (min-width: 1024px){
-      .overview-img-small{
-        width: clamp(420px, 70%, 900px);   /* larger target range on desktop */
-        max-width: 900px;                  /* hard ceiling so it doesn’t explode on ultrawide */
+    @media (min-width: 1440px){
+      .overview-img{
+        width: min(1250px, 70vw, calc(100vw - var(--sidebar-w) - 180px));
       }
     }
-    
-    /* Optional: slightly larger on very big screens */
-    @media (min-width: 2000px){
-      .overview-img-small{
-        width: clamp(480px, 60%, 1000px);
-        max-width: 1000px;
-      }
-    }
+
 
     
     @media (min-width: 1400px) {
