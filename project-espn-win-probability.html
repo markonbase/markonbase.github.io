@@ -74,6 +74,48 @@ layout: none
       width:100%; height:auto; border-radius:12px; display:block; margin-top:12px;
     }
 
+    /* Hero layout adjustments */
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    
+    /* left-aligned version */
+    .hero-left {
+      flex-direction: row; /* image left, text right */
+    }
+    
+    .hero-img {
+      flex: 0 0 40%;
+      max-width: 340px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .hero-text {
+      flex: 1 1 55%;
+    }
+
+    /* ---------- MOBILE STACK ---------- */
+    @media (max-width: 700px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-img {
+        order: -1;              /* image first on mobile */
+        max-width: 90%;
+        margin-bottom: 16px;
+      }
+      .hero-text {
+        flex: 1 1 100%;
+      }
+    }
+        
     /* Content cards */
     .card{
       background:var(--panel);
@@ -203,10 +245,19 @@ layout: none
     <p style="margin:0 0 10px;"><a href="projects.html">← Back to Projects</a></p>
 
     <!-- Hero -->
-    <section class="hero">
-      <h1>ESPN-Style Win Probability</h1>
-      <p><em>Inspired by live broadcast win-chance indicators that update during games.</em></p>
-      <img src="espn_winprob.png" alt="Win probability model diagram" />
+   <section class="hero">
+      <div class="hero-content hero-left">
+        <img src="espn_winprob.png" alt="Win probability model diagram" class="hero-img" />
+        <div class="hero-text">
+          <h1>ESPN-Style Win Probability</h1>
+          <p><em>Inspired by live broadcast win-chance indicators that update during games.</em></p>
+          <p>
+            A neural model that estimates the probability a team will win at any point in a game.
+            It’s trained on completed games and designed to produce real-time, broadcast-style indicators
+            similar to ESPN’s on-screen meter.
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- Overview -->
