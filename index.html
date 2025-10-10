@@ -18,35 +18,32 @@ layout: none
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    html,body{ height:100%; margin:0; }
     body{
-      margin:0; font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       color:var(--text); background:var(--bg);
     }
 
-    /* Layout */
+    /* Desktop layout */
     .sidebar{
       position:fixed; inset:0 auto 0 0; width:var(--sidebar-w);
       padding:12px 18px; background:var(--panel); border-right:1px solid rgba(127,127,127,.2);
       overflow-y:auto;
+      z-index:150;
     }
     .content{ margin-left:var(--sidebar-w); padding:40px 28px; max-width:1024px; }
 
-    /* Logo (responsive) */
+    /* Brand */
     .brand{
       display:flex; flex-direction:column; align-items:center; text-align:center; margin:0; padding:0;
     }
-    .brand .logo {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-width: 240px;
-      margin: 0 0 6px 0;  /* reduce spacing below logo */
+    .brand .logo{
+      display:block; width:100%; height:auto; max-width:240px; margin:0 0 6px 0;
     }
     .brand h1{ margin:0 0 6px; font-size:1.5rem }
     .tagline{ margin:0 0 18px; color:var(--muted) }
 
-    /* Nav (desktop: vertical list, centered) */
+    /* Nav (desktop) */
     @media (min-width:861px){
       .nav{
         display:flex; flex-direction:column; align-items:center; gap:8px;
@@ -56,14 +53,13 @@ layout: none
         display:inline-block; color:var(--text); text-decoration:none;
         padding:8px 10px; border-radius:10px;
       }
+      .nav a:hover,.nav a:focus{ background:rgba(127,127,127,.12); outline:none }
     }
 
-     /* Sections */
+    /* Sections */
     h2{ margin:0 0 12px; font-size:1.6rem }
     section{ margin-bottom:36px }
     .card{ background:var(--panel); border:1px solid rgba(127,127,127,.2); border-radius:var(--radius); padding:16px 18px; margin:12px 0 }
-    .card h3{ margin:0 0 6px; font-size:1.15rem }
-    .card a{ color:var(--link); text-decoration:none }
     .footer{ color:var(--muted); margin-top:40px }
 
     /* Hero (Home) */
@@ -76,22 +72,11 @@ layout: none
     .hero h2{ margin:0 0 8px }
     .hero p{ margin:6px 0; color:var(--muted) }
 
-    /* Cards, links */
-    .downloads h2,.links h2{ font-size:.95rem; margin:18px 0 8px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em }
-    .downloads ul,.links ul{ list-style:none; margin:0; padding:0 }
-    .downloads li,.links li{ margin:6px 0 }
-    .downloads a,.links a{ color:var(--link); text-decoration:none }
-    .nav a:hover,.nav a:focus{ background:rgba(127,127,127,.12); outline:none }
+    /* ===================== MOBILE MODE ===================== */
+    .mobile-header{ display:none; } /* appears when scrolled */
 
-    h2{ margin:0 0 12px; font-size:1.6rem }
-    section{ margin-bottom:36px }
-    .card{ background:var(--panel); border:1px solid rgba(127,127,127,.2); border-radius:var(--radius); padding:16px 18px; margin:12px 0 }
-    .card h3{ margin:0 0 6px; font-size:1.15rem }
-    .card a{ color:var(--link); text-decoration:none }
-    .footer{ color:var(--muted); margin-top:40px }
-
-    /* Mobile: sidebar to top; nav centered with CSS Grid */
     @media (max-width:860px){
+      /* Full sidebar shows at top when at top of page */
       .sidebar{
         position:static; width:auto; border-right:none; border-bottom:1px solid rgba(127,127,127,.2);
         border-radius:0 0 var(--radius) var(--radius);
@@ -99,60 +84,79 @@ layout: none
       .content{ margin:0; padding:24px 18px }
       .brand{ align-items:center; text-align:center }
 
-       .nav{
-        display:flex;
-        flex-wrap:wrap;
-        justify-content:center;  /* center rows */
-        align-items:center;
-        gap:10px 18px;           /* row + column spacing */
-        width:100%;
-        margin:16px 0 18px;
-        padding:0;
-        text-align:center;
+      .nav{
+        display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+        gap:10px 18px; width:100%; margin:16px 0 18px; padding:0; text-align:center;
       }
-    
       .nav a{
-        display:inline-flex;
-        flex:0 0 auto;
-        width:auto;
-        padding:6px 10px;
-        border-radius:10px;
-        text-decoration:none !important;  /* remove underlines */
-        color:var(--text) !important;     /* same color as sidebar text */
-        background:none;                  /* remove any default link styling */
+        display:inline-flex; flex:0 0 auto; width:auto; padding:6px 10px; border-radius:10px;
+        text-decoration:none !important; color:var(--text) !important; background:none;
       }
-    
-      .nav a:hover,
-      .nav a:focus{
-        background:rgba(127,127,127,.12);
-        outline:none;
-        text-decoration:none;             /* keep underline off on hover */
+      .nav a:hover,.nav a:focus{ background:rgba(127,127,127,.12); outline:none; text-decoration:none; }
+
+      /* ----- Collapsed top bar that appears AFTER scrolling ----- */
+      .mobile-header{
+        display:none; /* hidden until body.scrolled */
+        justify-content:space-between; align-items:center;
+        position:fixed; top:0; left:0; right:0; height:60px;
+        background:var(--panel); border-bottom:1px solid rgba(127,127,127,.2);
+        padding:0 16px; z-index:250;
       }
+      .mobile-brand{ display:flex; align-items:center; gap:10px; }
+      .mobile-logo{ height:36px; width:auto; border-radius:6px; }
+      .mobile-name{ font-weight:600; color:var(--text); font-size:1rem; }
+      .menu-toggle{
+        background:none; border:none; color:var(--text);
+        font-size:1.6rem; cursor:pointer; line-height:1;
+      }
+
+      /* When scrolled: show top bar, convert sidebar to off-canvas */
+      body.scrolled .mobile-header{ display:flex; }
+      body.scrolled .sidebar{
+        position:fixed; top:60px; left:-100%; height:calc(100% - 60px);
+        width:min(88vw, var(--sidebar-w));
+        background:var(--panel);
+        transition:left .3s ease;
+        overflow-y:auto;
+        padding:12px 18px 18px;
+        border-right:1px solid rgba(127,127,127,.2);
+      }
+      body.scrolled .sidebar.active{ left:0; }
+
+      /* Content gets top margin when bar is visible */
+      body.scrolled .content{ margin:80px 0 0 0; padding:24px 18px; }
     }
-    
+
     /* Accessibility */
     :focus-visible{ outline:2px solid var(--accent); outline-offset:2px }
     @media (prefers-reduced-motion: reduce){ *{ animation:none!important; transition:none!important } }
   </style>
 </head>
 <body>
-  <div class="layout">
-  <aside class="sidebar" aria-label="Primary">
+  <!-- Collapsed mobile top bar (appears after scroll) -->
+  <header class="mobile-header" role="banner" aria-hidden="true">
+    <div class="mobile-brand">
+      <img src="logo.png" alt="Logo" class="mobile-logo" />
+      <span class="mobile-name">Mark Hernandez</span>
+    </div>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-controls="sidebar" aria-expanded="false">☰</button>
+  </header>
+
+  <aside class="sidebar" id="sidebar" aria-label="Primary">
     <div class="brand">
       <img src="logo.png" alt="Logo" class="logo" />
       <h1>Mark Hernandez</h1>
       <p class="tagline">Transportation · Deep Learning · Cybersecurity</p>
     </div>
 
-   <nav class="nav">
-    <a href="index.html#home">Home</a>
-    <a href="#about">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="#presentations">Presentations/Talks</a>
-    <a href="#publications">Publications</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
+    <nav class="nav">
+      <a href="index.html#home">Home</a>
+      <a href="#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="#presentations">Presentations/Talks</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
     <div class="downloads">
       <h2>Downloads</h2>
@@ -171,44 +175,71 @@ layout: none
     </div>
   </aside>
 
- <main class="content">
-    <section>
+  <main class="content" id="home">
+    <section class="hero">
       <h2>Mark Hernandez</h2>
       <p>PhD Student · Computer Science</p>
       <p>Exploring Reinforcement Learning, Cybersecurity, and Transportation Systems.</p>
-      <p><a href="#projects" style="color: var(--link); text-decoration:none;">View Projects ↓</a></p>
+      <p><a href="projects.html" style="color: var(--link); text-decoration:none;">View Projects ↓</a></p>
     </section>
-</main>
-</div>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  </main>
 
   <script>
-    // Prevent the browser from restoring an old scroll position
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-    window.addEventListener('pageshow', function (e) {
-      // If coming from bfcache, force to top
-      if (e.persisted && !location.hash) window.scrollTo(0, 0);
-    });
-    window.addEventListener('load', function () {
-      if (!location.hash) window.scrollTo(0, 0);
-    });
-</script>
+    // Prevent restoring old scroll position
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
+    // Toggle 'scrolled' mode on mobile
+    const mqMobile = window.matchMedia('(max-width: 860px)');
+    const bodyEl = document.body;
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.querySelector('.menu-toggle');
+
+    function updateScrolledClass(){
+      if (!mqMobile.matches) { // desktop
+        bodyEl.classList.remove('scrolled');
+        sidebar.classList.remove('active');
+        toggleBtn?.setAttribute('aria-expanded','false');
+        return;
+      }
+      const y = window.scrollY || window.pageYOffset;
+      if (y > 10) {
+        bodyEl.classList.add('scrolled');
+      } else {
+        bodyEl.classList.remove('scrolled');
+        // ensure sidebar is visible inline (not off-canvas) at top
+        sidebar.classList.remove('active');
+        toggleBtn?.setAttribute('aria-expanded','false');
+      }
+    }
+
+    // Initial state + listeners
+    updateScrolledClass();
+    window.addEventListener('scroll', updateScrolledClass, { passive: true });
+    window.addEventListener('resize', updateScrolledClass);
+
+    // Hamburger toggle (only meaningful in scrolled/mobile state)
+    if (toggleBtn){
+      function setExpanded(on){
+        toggleBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
+        sidebar.classList.toggle('active', !!on);
+      }
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setExpanded(!sidebar.classList.contains('active'));
+      });
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (sidebar.classList.contains('active') &&
+            !sidebar.contains(e.target) &&
+            !toggleBtn.contains(e.target)) {
+          setExpanded(false);
+        }
+      });
+      // Close on ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setExpanded(false);
+      });
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
