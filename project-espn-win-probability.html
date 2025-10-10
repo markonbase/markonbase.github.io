@@ -100,12 +100,11 @@ layout: none
       flex: 1 1 55%;
     }
 
-    /* ---------- SMALL OVERVIEW IMAGE BELOW TEXT ---------- */
+    /* ---------- RESPONSIVE OVERVIEW IMAGE BELOW TEXT ---------- */
     .overview-img-small {
       display: block;
-      margin: 16px auto 8px auto;  /* centers image with spacing */
-      width: 70%;                 /* limits image width */
-      max-width: 400px;           /* prevents it from getting too large */
+      margin: 16px auto 8px auto;
+      width: clamp(180px, 60%, 380px); /* responsive width range */
       height: auto;
       border-radius: 10px;
       border: 1px solid rgba(127,127,127,.2);
@@ -114,9 +113,26 @@ layout: none
       transition: transform 0.25s ease, opacity 0.25s ease;
     }
     
-    .overview-img-small:hover {
-      transform: scale(1.02);
-      opacity: 1;
+    /* ---------- RESPONSIVE BEHAVIOR ---------- */
+    @media (min-width: 1400px) {
+      .overview-img-small {
+        width: 40%; /* smaller on ultra-wide monitors */
+        max-width: 420px;
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .overview-img-small {
+        width: 70%;
+        max-width: 340px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .overview-img-small {
+        width: 85%;
+        max-width: 300px;
+      }
     }
 
     /* ---------- MOBILE STACK ---------- */
