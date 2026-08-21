@@ -630,9 +630,9 @@ layout: none
           <p class="section-kicker">Baseball Win Probability</p>
           <h1 id="project-title">Recreating the idea behind a live win probability bar.</h1>
           <p class="lead">
-            An early machine learning experiment inspired by the win-probability graphics shown during baseball broadcasts. I used historical Retrosheet game data to explore whether a neural network could estimate how likely a team was to win as a game progressed.
+            An early machine learning experiment inspired by the win-probability graphics shown during baseball broadcasts. Historical Retrosheet game data was used to explore whether a neural network could estimate how likely a team was to win as a game progressed.
           </p>
-          <p class="hero-question">Can game context, the current score, and team performance be combined into a useful in-game win estimate?</p>
+          <p class="hero-question">Can game context, the current score, and a team's season performance be combined into a useful in-game win estimate?</p>
         </div>
 
         <div class="prob-card" aria-label="Conceptual example of a live win probability display">
@@ -660,8 +660,8 @@ layout: none
         </div>
 
         <div class="inspiration-copy">
-          <p>I was interested in the win-probability meters that update throughout live sports broadcasts and wanted to understand how a simplified version could be built for baseball.</p>
-          <p class="muted">The goal was a general method rather than a Dodgers-only predictor. I used a smaller two-team setup, including the Los Angeles Dodgers as my main proof of concept, to keep the first implementation manageable.</p>
+          <p>I was interested in the win-probability meters that update throughout live sports broadcasts and wanted to understand how a simplified version could be built for real-time analysis.</p>
+          <p class="muted">The goal was to create a general method predictor that could be used for any team stats. I used the Los Angeles Dodgers (my favorite team) as my main proof of concept, to keep this project manageable.</p>
         </div>
       </div>
     </section>
@@ -670,7 +670,7 @@ layout: none
       <p class="section-kicker">02 · The Data</p>
       <h2 id="data-heading">Historical games became structured snapshots of game state.</h2>
       <p class="section-copy">
-        Historical game records were manually collected from Retrosheet and reorganized into a consistent team-versus-opponent representation. I chose a manual workflow rather than building a scraper.
+        Historical game records were manually collected from Retrosheet and reorganized into a consistent team-versus-opponent representation. I chose a manual workflow rather than building a scraper for ethical reasons.
       </p>
 
       <div class="source-strip">
@@ -679,7 +679,7 @@ layout: none
         </div>
         <div class="source-details">
           <h3>Retrosheet game logs</h3>
-          <p>Historical records covering the project period were converted into model-ready features describing the game context and both teams' performance.</p>
+          <p>Historical records covering the project period were converted into model-ready features describing the game context and both teams' up-to-date season performance.</p>
           <div class="year-range" aria-label="Data period from 2010 through 2023">
             <div class="year-labels"><span>2010</span><span>2023</span></div>
             <div class="year-line" aria-hidden="true"></div>
@@ -713,7 +713,7 @@ layout: none
 
     <section class="case-section" aria-labelledby="model-heading">
       <p class="section-kicker">03 · Model & Approach</p>
-      <h2 id="model-heading">Make score and game time matter, not just the box score.</h2>
+      <h2 id="model-heading">The score and game-time matters just as much as the box score</h2>
       <p class="section-copy">
         The main modeling idea was that the same statistics should not mean exactly the same thing at every point in a game. A two-run lead in the second inning is different from a two-run lead in the eighth.
       </p>
@@ -745,7 +745,7 @@ layout: none
       </div>
 
       <p class="technical-note">
-        The final PyTorch experiment separately processed score and game duration, combined those signals with learned game features, and passed the resulting representation through dense layers for a two-class prediction.
+        The final PyTorch experiment separately processed score and game duration, combined those signals with learned game features, and passed the resulting representation through dense layers for a two-class 'Win or Lose" prediction.
       </p>
 
       <div class="tech-list" aria-label="Technologies used">
@@ -761,7 +761,7 @@ layout: none
       <p class="section-kicker">04 · Real-Game Tests</p>
       <h2 id="tests-heading">Following two games at three different checkpoints.</h2>
       <p class="section-copy">
-        I created partial snapshots from two 2023 games and evaluated the model at the end of the 4th, 6th, and 8th innings. This was the closest part of the project to the live broadcast idea.
+        I manually created partial snapshots from two 2023 games and evaluated the model at the end of the 4th, 6th, and 8th innings. This was the closest part of the project to the live broadcast idea.
       </p>
 
       <div class="games-grid">
@@ -795,7 +795,10 @@ layout: none
             <div class="timeline-point">
               <strong>End 4th</strong>
               <span>Checkpoint</span>
-              <div class="timeline-prob">Probability pending</div>
+              <div class="split-prob" aria-hidden="true">
+                <div class="split-side blue"><span class="team-word">WSH</span><span class="pct">34%</span></div>
+                <div class="split-side gray"><span class="pct">66%</span><span class="team-word">LAD</span></div>
+              </div>
             </div>
             <div class="timeline-point">
               <strong>End 6th</strong>
