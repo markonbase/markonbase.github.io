@@ -227,10 +227,12 @@ layout: none
       align-items:center;
       margin-top:20px;
     }
+    .inspiration-grid > *{ min-width:0; }
     .broadcast-frame{
       position:relative;
-      aspect-ratio:16/7;
-      min-height:180px;
+      width:100%;
+      min-width:0;
+      aspect-ratio:16/6.4;
       overflow:hidden;
       border:1px solid var(--border-strong);
       border-radius:var(--radius);
@@ -541,7 +543,7 @@ layout: none
       .feature-grid,.games-grid,.result-band,.source-strip{ grid-template-columns:1fr; }
       .feature-card{ min-height:0; }
       .source-logo-wrap{ min-height:90px; }
-      .broadcast-frame{ min-height:150px; }
+      .broadcast-frame{ aspect-ratio:16/6.4; }
       .split-prob{ height:40px; }
       .split-side{ padding:0 9px; font-size:.86rem; }
       .split-side .pct{ font-size:1rem; }
