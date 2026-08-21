@@ -362,11 +362,14 @@ layout: none
     /* Real game timelines */
     .games-grid{
       display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
+      /* Keep two cards only while each card has enough room for
+         three readable probability checkpoints. */
+      grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));
       gap:14px;
       margin-top:20px;
     }
     .game-card{
+      min-width:0;
       padding:20px;
       border:1px solid var(--border);
       border-radius:var(--radius);
@@ -391,7 +394,7 @@ layout: none
       height:2px;
       background:var(--border-strong);
     }
-    .timeline-point{ position:relative; text-align:center; }
+    .timeline-point{ position:relative; min-width:0; text-align:center; }
     .timeline-point::before{
       content:"";
       position:absolute;
@@ -653,6 +656,64 @@ layout: none
       .timeline-prob{ font-size:.7rem; padding:6px; }
       .result-band{ padding:20px 16px; }
       .result-number{ text-align:left; }
+    }
+
+    @media (max-width:520px){
+      /* On narrow phones, show the checkpoints as readable rows rather
+         than squeezing three probability bars side-by-side. */
+      .timeline{
+        grid-template-columns:1fr;
+        gap:14px;
+        padding-top:0;
+        margin-top:18px;
+      }
+
+      .timeline::before{ display:none; }
+
+      .timeline-point{
+        display:grid;
+        grid-template-columns:minmax(72px,.38fr) minmax(0,1fr);
+        grid-template-rows:auto auto;
+        column-gap:12px;
+        align-items:center;
+        text-align:left;
+        padding-left:14px;
+      }
+
+      .timeline-point::before{
+        top:50%;
+        left:0;
+        width:8px;
+        height:8px;
+        transform:translateY(-50%);
+      }
+
+      .timeline-point > strong{
+        grid-column:1;
+        grid-row:1;
+      }
+
+      .timeline-point > span{
+        grid-column:1;
+        grid-row:2;
+        margin-top:0;
+      }
+
+      .timeline-point > .timeline-prob{
+        grid-column:2;
+        grid-row:1 / span 2;
+        width:100%;
+        margin-top:0;
+      }
+
+      .mini-team{
+        flex-direction:row;
+        align-items:center !important;
+        gap:5px;
+      }
+
+      .mini-team:last-child{ justify-content:flex-end; }
+      .mini-team .mini-pct{ margin-top:0; }
     }
 
     @media (max-width:420px){
