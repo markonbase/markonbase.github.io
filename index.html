@@ -8,251 +8,131 @@ layout: none
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mark Hernandez — Portfolio</title>
   <style>
+    /* Base variables */
     :root{
-      --bg:#0b0d10;
-      --panel:#11141a;
-      --text:#e7ebf0;
-      --muted:#97a2b0;
-      --link:#79b8ff;
-      --accent:#21c55d;
-      --blue:#5aa7ff;
-      --border:rgba(127,127,127,.20);
-      --sidebar-w:300px;
-      --radius:14px;
+      --bg:#0b0d10; --panel:#11141a; --text:#e7ebf0; --muted:#97a2b0; --link:#79b8ff; --accent:#21c55d;
+      --sidebar-w:300px; --radius:14px;
     }
-
     @media (prefers-color-scheme: light){
-      :root{
-        --bg:#f7f9fc;
-        --panel:#fff;
-        --text:#0c1116;
-        --muted:#526074;
-        --link:#0066cc;
-        --border:rgba(30,45,65,.14);
-      }
+      :root{ --bg:#f7f9fc; --panel:#fff; --text:#0c1116; --muted:#48556a; --link:#0066cc; }
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
-      margin:0;
-      font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      color:var(--text);
-      background:var(--bg);
+      margin:0; font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text); background:var(--bg);
     }
 
-    a{color:var(--link)}
-
-    /* Sidebar */
+    /* Layout */
     .sidebar{
-      position:fixed;
-      inset:0 auto 0 0;
-      width:var(--sidebar-w);
-      padding:12px 18px 24px;
-      background:var(--panel);
-      border-right:1px solid var(--border);
+      position:fixed; inset:0 auto 0 0; width:var(--sidebar-w);
+      padding:12px 18px; background:var(--panel); border-right:1px solid rgba(127,127,127,.2);
       overflow-y:auto;
     }
+    .content{ margin-left:var(--sidebar-w); padding:40px 28px; max-width:1024px; }
 
-    .brand{display:flex;flex-direction:column;align-items:center;text-align:center}
-    .brand .logo{display:block;width:100%;height:auto;max-width:220px;margin:0 0 4px}
-    .brand h1{margin:0 0 4px;font-size:1.45rem}
-    .tagline{margin:0 0 22px;color:var(--muted);font-size:.95rem}
-
-    .nav{display:flex;flex-direction:column;align-items:center;gap:7px;margin:12px 0 20px;text-align:center}
-    .nav a{display:inline-block;color:var(--text);text-decoration:none;padding:7px 10px;border-radius:9px}
-    .nav a:hover,.nav a:focus{background:rgba(127,127,127,.10);outline:none}
-
-    .downloads h2,.links h2{
-      font-size:.78rem;
-      margin:20px 0 8px;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.11em;
+    /* Logo (responsive) */
+    .brand{
+      display:flex; flex-direction:column; align-items:center; text-align:center; margin:0; padding:0;
     }
-    .downloads ul,.links ul{list-style:none;margin:0;padding:0}
-    .downloads li,.links li{margin:5px 0}
-    .downloads a,.links a{color:var(--link);text-decoration:none}
-
-    /* Main reading column */
-    .content{
-      margin-left:var(--sidebar-w);
-      width:calc(100% - var(--sidebar-w));
-      max-width:980px;
-      padding:64px 54px 56px;
+    .brand .logo {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 240px;
+      margin: 0 0 6px 0;  /* reduce spacing below logo */
     }
+    .brand h1{ margin:0 0 6px; font-size:1.5rem }
+    .tagline{ margin:0 0 18px; color:var(--muted) }
 
-    .story-section{
-      max-width:760px;
-      padding:76px 0;
-      border-bottom:1px solid var(--border);
+    /* Nav (desktop: vertical list, centered) */
+    @media (min-width:861px){
+      .nav{
+        display:flex; flex-direction:column; align-items:center; gap:8px;
+        margin:12px 0 18px; text-align:center;
+      }
+      .nav a{
+        display:inline-block; color:var(--text); text-decoration:none;
+        padding:8px 10px; border-radius:10px;
+      }
     }
 
-    .story-section:first-child{padding-top:18px}
+     /* Sections */
+    h2{ margin:0 0 12px; font-size:1.6rem }
+    section{ margin-bottom:36px }
+    .card{ background:var(--panel); border:1px solid rgba(127,127,127,.2); border-radius:var(--radius); padding:16px 18px; margin:12px 0 }
+    .card h3{ margin:0 0 6px; font-size:1.15rem }
+    .card a{ color:var(--link); text-decoration:none }
+    .footer{ color:var(--muted); margin-top:40px }
 
-    .eyebrow{
-      margin:0 0 12px;
-      color:var(--blue);
-      font-size:.74rem;
-      font-weight:800;
-      letter-spacing:.13em;
-      text-transform:uppercase;
+    /* Hero (Home) */
+    .hero{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      border:1px solid rgba(127,127,127,.2);
+      border-radius:var(--radius);
+      padding:22px 22px;
     }
+    .hero h2{ margin:0 0 8px }
+    .hero p{ margin:6px 0; color:var(--muted) }
 
-    .story-section h1,
-    .story-section h2{
-      margin:0;
-      line-height:1.08;
-      letter-spacing:-.03em;
-    }
+    /* Cards, links */
+    .downloads h2,.links h2{ font-size:.95rem; margin:18px 0 8px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em }
+    .downloads ul,.links ul{ list-style:none; margin:0; padding:0 }
+    .downloads li,.links li{ margin:6px 0 }
+    .downloads a,.links a{ color:var(--link); text-decoration:none }
+    .nav a:hover,.nav a:focus{ background:rgba(127,127,127,.12); outline:none }
 
-    .story-section h1{font-size:clamp(2.7rem,6vw,4.7rem)}
-    .story-section h2{font-size:clamp(1.7rem,3vw,2.35rem);max-width:680px}
+    h2{ margin:0 0 12px; font-size:1.6rem }
+    section{ margin-bottom:36px }
+    .card{ background:var(--panel); border:1px solid rgba(127,127,127,.2); border-radius:var(--radius); padding:16px 18px; margin:12px 0 }
+    .card h3{ margin:0 0 6px; font-size:1.15rem }
+    .card a{ color:var(--link); text-decoration:none }
+    .footer{ color:var(--muted); margin-top:40px }
 
-    .role{
-      margin:12px 0 0;
-      color:var(--muted);
-      font-size:1rem;
-      font-weight:650;
-    }
-
-    .lead{
-      max-width:690px;
-      margin:26px 0 0;
-      font-size:clamp(1.08rem,2vw,1.27rem);
-      color:var(--text);
-    }
-
-    .subcopy{
-      max-width:680px;
-      margin:18px 0 0;
-      color:var(--muted);
-    }
-
-    .hero-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:18px;
-      margin-top:28px;
-    }
-
-    .hero-links a{
-      text-decoration:none;
-      font-weight:700;
-    }
-
-    .hero-links .primary{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:10px 14px;
-      border-radius:9px;
-      background:#2f68b8;
-      color:#fff;
-    }
-
-    /* Research focus as a clean vertical list, not cards */
-    .focus-list{margin-top:34px;border-top:1px solid var(--border)}
-    .focus-row{
-      display:grid;
-      grid-template-columns:48px minmax(0,1fr) minmax(240px,.9fr);
-      gap:18px;
-      align-items:start;
-      padding:22px 0;
-      border-bottom:1px solid var(--border);
-    }
-    .focus-index{color:var(--blue);font-size:.78rem;font-weight:800;letter-spacing:.08em}
-    .focus-row h3{margin:0;font-size:1.05rem}
-    .focus-row p{margin:0;color:var(--muted);font-size:.92rem}
-
-    /* Background story */
-    .path{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:10px;
-      margin-top:30px;
-      color:var(--muted);
-      font-size:.9rem;
-    }
-    .path strong{color:var(--text);font-weight:700}
-    .path-arrow{color:var(--blue)}
-
-    /* Selected work */
-    .project-row{
-      display:grid;
-      grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr);
-      gap:34px;
-      align-items:center;
-      margin-top:30px;
-      padding-top:28px;
-      border-top:1px solid var(--border);
-    }
-    .project-row h3{margin:0 0 8px;font-size:1.18rem}
-    .project-row p{margin:0 0 14px;color:var(--muted)}
-    .project-row a{text-decoration:none;font-weight:700}
-
-    .mini-visual{padding:14px 0}
-    .mini-caption{
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:8px;
-      color:var(--muted);
-      font-size:.68rem;
-      font-weight:800;
-      letter-spacing:.09em;
-      text-transform:uppercase;
-    }
-    .mini-bar{
-      display:grid;
-      grid-template-columns:64fr 36fr;
-      height:40px;
-      overflow:hidden;
-      border:1px solid var(--border);
-      border-radius:9px;
-    }
-    .mini-bar span{display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-weight:800;font-size:.8rem}
-    .mini-bar .team{background:linear-gradient(90deg,#2f68b8,#5aa7ff);color:#fff}
-    .mini-bar .opp{background:rgba(151,162,176,.25)}
-
-    /* Contact */
-    .contact-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px}
-    .contact-links a{text-decoration:none;font-weight:700}
-
-    .footer{max-width:760px;margin-top:30px;color:var(--muted);font-size:.88rem}
-
-    @media (max-width:920px){
-      .focus-row{grid-template-columns:42px 1fr}
-      .focus-row p{grid-column:2}
-      .project-row{grid-template-columns:1fr}
-      .mini-visual{max-width:520px}
-    }
-
+    /* Mobile: sidebar to top; nav centered with CSS Grid */
     @media (max-width:860px){
       .sidebar{
-        position:static;
-        width:auto;
-        border-right:none;
-        border-bottom:1px solid var(--border);
+        position:static; width:auto; border-right:none; border-bottom:1px solid rgba(127,127,127,.2);
+        border-radius:0 0 var(--radius) var(--radius);
       }
-      .content{width:100%;margin:0;padding:34px 22px 46px}
-      .nav{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px 14px}
-      .story-section{padding:58px 0}
-      .story-section:first-child{padding-top:12px}
-    }
+      .content{ margin:0; padding:24px 18px }
+      .brand{ align-items:center; text-align:center }
 
-    @media (max-width:520px){
-      body{font-size:15px}
-      .content{padding-left:16px;padding-right:16px}
-      .story-section{padding:48px 0}
-      .focus-row{grid-template-columns:34px 1fr;gap:12px}
-      .hero-links{gap:14px}
-      .path{align-items:flex-start;flex-direction:column;gap:4px}
-      .path-arrow{transform:rotate(90deg)}
+       .nav{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;  /* center rows */
+        align-items:center;
+        gap:10px 18px;           /* row + column spacing */
+        width:100%;
+        margin:16px 0 18px;
+        padding:0;
+        text-align:center;
+      }
+    
+      .nav a{
+        display:inline-flex;
+        flex:0 0 auto;
+        width:auto;
+        padding:6px 10px;
+        border-radius:10px;
+        text-decoration:none !important;  /* remove underlines */
+        color:var(--text) !important;     /* same color as sidebar text */
+        background:none;                  /* remove any default link styling */
+      }
+    
+      .nav a:hover,
+      .nav a:focus{
+        background:rgba(127,127,127,.12);
+        outline:none;
+        text-decoration:none;             /* keep underline off on hover */
+      }
     }
-
-    :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    
+    /* Accessibility */
+    :focus-visible{ outline:2px solid var(--accent); outline-offset:2px }
+    @media (prefers-reduced-motion: reduce){ *{ animation:none!important; transition:none!important } }
   </style>
 </head>
 <body>
@@ -266,11 +146,11 @@ layout: none
 
    <nav class="nav">
     <a href="index.html#home">Home</a>
-    <a href="index.html#about">About</a>
+    <a href="#about">About</a>
     <a href="projects.html">Projects</a>
     <a href="#presentations">Presentations/Talks</a>
     <a href="#publications">Publications</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="#contact">Contact</a>
   </nav>
 
 
@@ -292,121 +172,13 @@ layout: none
   </aside>
 
  <main class="content">
-    <section class="story-section" id="home" aria-labelledby="home-title">
-      <p class="eyebrow">Hello, I'm</p>
-      <h1 id="home-title">Mark Hernandez</h1>
-      <p class="role">PhD Candidate · Computer Science</p>
-
-      <p class="lead">
-        I study how learning-based systems can make transportation networks smarter,
-        safer, and more resilient.
-      </p>
-      <p class="subcopy">
-        My work brings together reinforcement learning, transportation systems, simulation,
-        and adversarial machine learning.
-      </p>
-
-      <div class="hero-links">
-        <a class="primary" href="projects.html">View my work →</a>
-        <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
-        <a href="mailto:markherna05@gmail.com">Email</a>
-      </div>
+    <section>
+      <h2>Mark Hernandez</h2>
+      <p>PhD Student · Computer Science</p>
+      <p>Exploring Reinforcement Learning, Cybersecurity, and Transportation Systems.</p>
+      <p><a href="#projects" style="color: var(--link); text-decoration:none;">View Projects ↓</a></p>
     </section>
-
-    <section class="story-section" aria-labelledby="focus-heading">
-      <p class="eyebrow">01 · What I Work On</p>
-      <h2 id="focus-heading">Intelligent transportation systems that can perform under real-world conditions.</h2>
-
-      <div class="focus-list">
-        <div class="focus-row">
-          <span class="focus-index">01</span>
-          <h3>Reinforcement Learning</h3>
-          <p>Learning-based control, decision-making, and multi-agent coordination.</p>
-        </div>
-        <div class="focus-row">
-          <span class="focus-index">02</span>
-          <h3>Transportation Systems</h3>
-          <p>Traffic control, simulation, and network-level operations.</p>
-        </div>
-        <div class="focus-row">
-          <span class="focus-index">03</span>
-          <h3>Cybersecurity & Resilience</h3>
-          <p>Understanding how learning-based systems respond to attacks, uncertainty, and disruption.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="story-section" id="about" aria-labelledby="about-heading">
-      <p class="eyebrow">02 · How I Got Here</p>
-      <h2 id="about-heading">From transportation engineering to machine learning and computer science.</h2>
-
-      <p class="lead">
-        My background began in civil and transportation engineering, where I became interested
-        in traffic operations and intelligent infrastructure. That interest eventually led me
-        toward machine learning and computer science as tools for studying control, coordination,
-        and resilience in transportation systems.
-      </p>
-      <p class="subcopy">
-        Today, my research sits at that intersection. Outside of research, I enjoy baseball and
-        small technical projects that let me experiment with data, modeling, and software in a
-        more personal setting.
-      </p>
-
-      <div class="path" aria-label="Background path">
-        <strong>Civil Engineering</strong>
-        <span class="path-arrow">→</span>
-        <strong>Transportation Systems</strong>
-        <span class="path-arrow">→</span>
-        <strong>Machine Learning</strong>
-        <span class="path-arrow">→</span>
-        <strong>Resilient Intelligent Systems</strong>
-      </div>
-    </section>
-
-    <section class="story-section" id="projects" aria-labelledby="work-heading">
-      <p class="eyebrow">03 · Selected Work</p>
-      <h2 id="work-heading">Projects that connect research with things I'm curious about.</h2>
-
-      <div class="project-row">
-        <div>
-          <h3>Baseball Win Probability</h3>
-          <p>
-            An early machine learning project inspired by live broadcast win-probability graphics.
-            I used historical Retrosheet data to explore how a team's estimated chance of winning
-            changed as a baseball game progressed.
-          </p>
-          <a href="project-espn-win-probability.html">View project →</a>
-        </div>
-
-        <div class="mini-visual" aria-label="Example baseball win probability graphic">
-          <div class="mini-caption">
-            <span>Win Probability</span>
-            <span>Example</span>
-          </div>
-          <div class="mini-bar" role="img" aria-label="Team 64 percent, opponent 36 percent">
-            <span class="team"><b>TEAM</b><b>64%</b></span>
-            <span class="opp"><b>36%</b><b>OPP</b></span>
-          </div>
-        </div>
-      </div>
-
-      <p class="subcopy"><a href="projects.html" style="text-decoration:none;font-weight:700;">See all projects →</a></p>
-    </section>
-
-    <section class="story-section" id="contact" aria-labelledby="contact-heading">
-      <p class="eyebrow">04 · Connect</p>
-      <h2 id="contact-heading">Interested in my research or want to talk about a project?</h2>
-      <p class="subcopy">I'm always open to research discussions, collaboration, and technical questions.</p>
-      <div class="contact-links">
-        <a href="mailto:markherna05@gmail.com">Email →</a>
-        <a href="https://github.com/markonbase" target="_blank" rel="noopener">GitHub →</a>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <p>© <span id="year"></span> Mark Hernandez · Built with GitHub Pages</p>
-    </footer>
-  </main>
+</main>
 </div>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
