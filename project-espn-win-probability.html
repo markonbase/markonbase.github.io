@@ -530,6 +530,29 @@ layout: none
       align-items:start;
       margin-top:18px;
     }
+    .future-work{
+      min-width:0;
+    }
+
+    .future-work-heading{
+      margin:0 0 10px;
+      color:var(--text);
+      font-size:.92rem;
+      font-weight:780;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .future-work-heading::after{
+      content:"";
+      display:block;
+      width:38px;
+      height:2px;
+      margin-top:7px;
+      border-radius:999px;
+      background:var(--blue);
+    }
+
     .takeaway-list{ display:grid; gap:10px; }
     .takeaway{
       padding:13px 14px;
@@ -971,10 +994,13 @@ layout: none
           <p>This project combined two interests: baseball and predictive modeling. It gave me hands-on experience turning messy real-world data into a complete ML workflow where I collected and cleaned data, designed features, trained a neural network, and tested on partial game states.</p>
           <p class="muted compact-copy">Looking back, the most valuable part is being able to see what I would improve now with a stronger ML perspective.</p>
         </div>
-        <div class="takeaway-list" aria-label="What I would improve today">
-          <div class="takeaway"><strong>Calibration</strong> — measure whether a reported 70% really behaves like 70%.</div>
-          <div class="takeaway"><strong>Temporal splits</strong> — validate on future seasons instead of only random held-out games.</div>
-          <div class="takeaway"><strong>Live pipeline</strong> — automate game-state updates for a true real-time demo.</div>
+        <div class="future-work">
+          <h3 class="future-work-heading">Future Work</h3>
+          <div class="takeaway-list" aria-label="Future work">
+            <div class="takeaway"><strong>Calibration</strong> — measure whether a reported 70% really behaves like 70%.</div>
+            <div class="takeaway"><strong>Temporal splits</strong> — validate on future seasons instead of only random held-out games.</div>
+            <div class="takeaway"><strong>Live pipeline</strong> — automate game-state updates for a true real-time demo.</div>
+          </div>
         </div>
       </div>
     </section>
