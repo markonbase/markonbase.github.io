@@ -408,16 +408,66 @@ layout: none
     .timeline-point strong{ display:block; font-size:.85rem; }
     .timeline-point span{ display:block; margin-top:3px; color:var(--muted); font-size:.72rem; }
     .timeline-prob{
-      display:flex;
-      align-items:center;
-      justify-content:center;
       min-height:40px;
       margin-top:9px;
-      border:1px dashed var(--border-strong);
       border-radius:9px;
-      color:var(--muted);
-      font-size:.76rem;
     }
+
+    /* Compact probability bars for the three game checkpoints.
+       The percentage controls only the background split, so the labels
+       never get squeezed by narrow probability segments. */
+    .mini-prob{
+      --opp-prob:50%;
+      position:relative;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      width:100%;
+      min-width:0;
+      height:44px;
+      overflow:hidden;
+      border:1px solid var(--border-strong);
+      background:
+        linear-gradient(
+          to right,
+          rgba(151,162,176,.34) 0%,
+          rgba(151,162,176,.34) var(--opp-prob),
+          #2f68b8 var(--opp-prob),
+          #5aa7ff 100%
+        );
+      color:#fff;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .mini-team{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      min-width:0;
+      padding:0 5px;
+      line-height:1.02;
+      text-shadow:0 1px 2px rgba(0,0,0,.35);
+    }
+
+    .mini-team:first-child{ align-items:flex-start; text-align:left; }
+    .mini-team:last-child{ align-items:flex-end; text-align:right; }
+
+    .mini-team .team-abbr{
+      color:rgba(255,255,255,.82);
+      font-size:.58rem;
+      font-weight:800;
+      letter-spacing:.05em;
+    }
+
+    .mini-team .mini-pct{
+      margin-top:2px;
+      color:#fff;
+      font-size:.78rem;
+      font-weight:850;
+    }
+
     .timeline-note{ margin:14px 0 0; color:var(--muted); font-size:.82rem; }
 
     /* Result */
@@ -772,20 +822,47 @@ layout: none
             <div class="timeline-point">
               <strong>End 4th</strong>
               <span>Checkpoint</span>
-              <div class="timeline-prob">Probability pending</div>
+              <div class="timeline-prob mini-prob" style="--opp-prob:34%;" role="img" aria-label="Nationals 34 percent, Dodgers 66 percent win probability">
+                <div class="mini-team">
+                  <span class="team-abbr">WSH</span>
+                  <span class="mini-pct">34%</span>
+                </div>
+                <div class="mini-team">
+                  <span class="team-abbr">LAD</span>
+                  <span class="mini-pct">66%</span>
+                </div>
+              </div>
             </div>
             <div class="timeline-point">
               <strong>End 6th</strong>
               <span>Checkpoint</span>
-              <div class="timeline-prob">Probability pending</div>
+              <div class="timeline-prob mini-prob" style="--opp-prob:81%;" role="img" aria-label="Nationals 81 percent, Dodgers 19 percent win probability">
+                <div class="mini-team">
+                  <span class="team-abbr">WSH</span>
+                  <span class="mini-pct">81%</span>
+                </div>
+                <div class="mini-team">
+                  <span class="team-abbr">LAD</span>
+                  <span class="mini-pct">19%</span>
+                </div>
+              </div>
             </div>
             <div class="timeline-point">
               <strong>End 8th</strong>
               <span>Checkpoint</span>
-              <div class="timeline-prob">Probability pending</div>
+              <div class="timeline-prob mini-prob" style="--opp-prob:83%;" role="img" aria-label="Nationals 83 percent, Dodgers 17 percent win probability">
+                <div class="mini-team">
+                  <span class="team-abbr">WSH</span>
+                  <span class="mini-pct">83%</span>
+                </div>
+                <div class="mini-team">
+                  <span class="team-abbr">LAD</span>
+                  <span class="mini-pct">17%</span>
+                </div>
+              </div>
             </div>
           </div>
-          <p class="timeline-note">The original values can be dropped into these three checkpoints once recovered.</p>
+          <p class="timeline-note">The model's confidence shifted strongly toward Washington as the game progressed.</p>
         </article>
 
         <article class="game-card">
@@ -795,23 +872,47 @@ layout: none
             <div class="timeline-point">
               <strong>End 4th</strong>
               <span>Checkpoint</span>
-              <div class="split-prob" aria-hidden="true">
-                <div class="split-side blue"><span class="team-word">WSH</span><span class="pct">34%</span></div>
-                <div class="split-side gray"><span class="pct">66%</span><span class="team-word">LAD</span></div>
+              <div class="timeline-prob mini-prob" style="--opp-prob:68%;" role="img" aria-label="Giants 68 percent, Dodgers 32 percent win probability">
+                <div class="mini-team">
+                  <span class="team-abbr">SF</span>
+                  <span class="mini-pct">68%</span>
+                </div>
+                <div class="mini-team">
+                  <span class="team-abbr">LAD</span>
+                  <span class="mini-pct">32%</span>
+                </div>
               </div>
             </div>
             <div class="timeline-point">
               <strong>End 6th</strong>
               <span>Checkpoint</span>
-              <div class="timeline-prob">Probability pending</div>
+              <div class="timeline-prob mini-prob" style="--opp-prob:23%;" role="img" aria-label="Giants 23 percent, Dodgers 77 percent win probability">
+                <div class="mini-team">
+                  <span class="team-abbr">SF</span>
+                  <span class="mini-pct">23%</span>
+                </div>
+                <div class="mini-team">
+                  <span class="team-abbr">LAD</span>
+                  <span class="mini-pct">77%</span>
+                </div>
+              </div>
             </div>
             <div class="timeline-point">
               <strong>End 8th</strong>
               <span>Checkpoint</span>
-              <div class="timeline-prob">Probability pending</div>
+              <div class="timeline-prob mini-prob" style="--opp-prob:20%;" role="img" aria-label="Giants 20 percent, Dodgers 80 percent win probability">
+                <div class="mini-team">
+                  <span class="team-abbr">SF</span>
+                  <span class="mini-pct">20%</span>
+                </div>
+                <div class="mini-team">
+                  <span class="team-abbr">LAD</span>
+                  <span class="mini-pct">80%</span>
+                </div>
+              </div>
             </div>
           </div>
-          <p class="timeline-note">This layout is ready to become a true probability timeline instead of another paragraph.</p>
+          <p class="timeline-note">The model flipped from favoring San Francisco in the 4th to strongly favoring Los Angeles by the 6th.</p>
         </article>
       </div>
     </section>
