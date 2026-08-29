@@ -458,6 +458,369 @@ layout: none
       html{scroll-behavior:auto}
       *{animation:none!important;transition:none!important}
     }
+  
+    /* =========================================================
+       CLEAN STORY LAYOUT
+       One main idea per section; fewer competing surfaces.
+       ========================================================= */
+
+    .content{
+      max-width:1120px;
+    }
+
+    .case-section{
+      padding:64px 2px;
+    }
+
+    .case-section.story-hero{
+      padding:clamp(28px,4vw,44px);
+    }
+
+    .story-copy{
+      max-width:690px;
+      margin:0;
+      font-size:1rem;
+      line-height:1.72;
+    }
+
+    .story-copy + .story-copy{
+      margin-top:12px;
+    }
+
+    .story-muted{
+      color:var(--muted);
+    }
+
+    .story-section-head{
+      max-width:760px;
+      margin-bottom:28px;
+    }
+
+    .story-section-head h2{
+      margin-bottom:12px;
+    }
+
+    .story-section-head p{
+      max-width:680px;
+      margin:0;
+      color:var(--muted);
+    }
+
+    .story-kicker{
+      margin:0 0 8px;
+      color:var(--blue);
+      font-size:.73rem;
+      font-weight:780;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+    }
+
+    /* Quiet labels instead of many pill tags */
+    .story-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 16px;
+      margin-bottom:18px;
+      color:var(--muted);
+      font-size:.8rem;
+    }
+
+    .story-meta span + span::before{
+      content:"·";
+      margin-right:16px;
+      color:var(--border-strong);
+    }
+
+    /* Hero */
+    .story-hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr);
+      gap:42px;
+      align-items:center;
+    }
+
+    .story-hero h1{
+      margin:0 0 16px;
+      max-width:700px;
+      font-size:clamp(2.35rem,4.5vw,4rem);
+      line-height:1.01;
+      letter-spacing:-.045em;
+    }
+
+    .story-hero .hero-lead{
+      max-width:650px;
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(1rem,1.6vw,1.15rem);
+      line-height:1.68;
+    }
+
+    .story-hero-visual{
+      min-width:0;
+    }
+
+    .story-hero-image{
+      display:block;
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      border:1px solid var(--border);
+      border-radius:14px;
+    }
+
+    .story-caption{
+      margin:8px 2px 0;
+      color:var(--muted);
+      font-size:.76rem;
+    }
+
+    /* Compact metrics: supporting information, not four competing cards */
+    .story-metrics{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px 28px;
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid var(--border);
+    }
+
+    .story-metric{
+      min-width:110px;
+    }
+
+    .story-metric strong{
+      display:block;
+      font-size:1.35rem;
+      line-height:1.1;
+    }
+
+    .story-metric span{
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size:.76rem;
+    }
+
+    /* Simple prose + visual two-column section */
+    .story-two-col{
+      display:grid;
+      grid-template-columns:minmax(260px,.9fr) minmax(0,1.1fr);
+      gap:36px;
+      align-items:center;
+    }
+
+    .story-image-frame{
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+    }
+
+    .story-image-frame img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    /* Plain list instead of a stack of cards */
+    .story-list{
+      margin:22px 0 0;
+      padding:0;
+      list-style:none;
+      border-top:1px solid var(--border);
+    }
+
+    .story-list li{
+      display:grid;
+      grid-template-columns:minmax(120px,.34fr) minmax(0,1fr);
+      gap:20px;
+      padding:14px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .story-list strong{
+      font-size:.92rem;
+    }
+
+    .story-list span{
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    /* One clear process, rather than many competing boxes */
+    .story-process{
+      display:grid;
+      grid-template-columns:1fr auto 1fr auto 1fr;
+      gap:12px;
+      align-items:center;
+      margin-top:28px;
+    }
+
+    .story-step{
+      padding:14px 4px;
+      text-align:center;
+    }
+
+    .story-step strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:.95rem;
+    }
+
+    .story-step span{
+      color:var(--muted);
+      font-size:.82rem;
+    }
+
+    .story-arrow{
+      color:var(--muted);
+      font-size:1.15rem;
+    }
+
+    /* Time / progression strip */
+    .story-time{
+      margin-top:26px;
+      padding:18px 0 0;
+      border-top:1px solid var(--border);
+    }
+
+    .story-time-labels{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:8px;
+      color:var(--muted);
+      font-size:.78rem;
+    }
+
+    .story-time-track{
+      display:grid;
+      grid-template-columns:10fr 8fr;
+      gap:4px;
+      height:12px;
+    }
+
+    .story-time-past,
+    .story-time-future{
+      border-radius:999px;
+    }
+
+    .story-time-past{ background:rgba(90,167,255,.42); }
+    .story-time-future{ background:rgba(33,197,93,.30); }
+
+    /* Result callout */
+    .story-result{
+      display:grid;
+      grid-template-columns:minmax(190px,.34fr) minmax(0,.66fr);
+      gap:32px;
+      align-items:center;
+      margin-top:26px;
+      padding:24px 0;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
+    .story-result-number strong{
+      display:block;
+      font-size:clamp(2.8rem,6vw,5rem);
+      line-height:.95;
+      letter-spacing:-.05em;
+    }
+
+    .story-result-number span{
+      display:block;
+      margin-top:8px;
+      color:var(--muted);
+      font-size:.74rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .story-result-copy p{
+      margin:0 0 10px;
+    }
+
+    .story-result-copy p:last-child{
+      margin-bottom:0;
+    }
+
+    /* Future / reflection items: open rows, not boxes */
+    .story-future{
+      margin-top:22px;
+      border-top:1px solid var(--border);
+    }
+
+    .story-future-row{
+      display:grid;
+      grid-template-columns:minmax(130px,.3fr) minmax(0,.7fr);
+      gap:24px;
+      padding:14px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .story-future-row strong{
+      font-size:.92rem;
+    }
+
+    .story-future-row span{
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    /* Resource links stay visually quiet */
+    .story-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      margin-top:16px;
+    }
+
+    .story-links a{
+      font-weight:650;
+    }
+
+    @media (max-width:940px){
+      .story-hero-grid,
+      .story-two-col,
+      .story-result{
+        grid-template-columns:1fr;
+      }
+
+      .story-hero-visual{
+        max-width:640px;
+      }
+    }
+
+    @media (max-width:680px){
+      .case-section{
+        padding:44px 0;
+      }
+
+      .case-section.story-hero{
+        padding:24px 18px;
+      }
+
+      .story-process{
+        grid-template-columns:1fr;
+        gap:0;
+      }
+
+      .story-arrow{
+        transform:rotate(90deg);
+        justify-self:center;
+      }
+
+      .story-list li,
+      .story-future-row{
+        grid-template-columns:1fr;
+        gap:3px;
+      }
+
+      .story-metrics{
+        gap:16px 24px;
+      }
+    }
+
   </style>
 </head>
 
@@ -508,205 +871,173 @@ layout: none
   <main class="content" id="content">
     <a class="back-link" href="projects.html">← Back to Projects</a>
 
-    <section class="case-section surface hero" aria-labelledby="project-title">
-      <div class="project-meta">
-        <span class="tag">Transportation</span>
-        <span class="tag">Rideshare</span>
-        <span class="tag">Forecasting</span>
-        <span class="tag">Chicago</span>
+
+    <section class="case-section surface story-hero" aria-labelledby="project-title">
+      <div class="story-meta" aria-label="Project categories">
+        <span>Transportation</span>
+        <span>Rideshare</span>
+        <span>Chicago</span>
       </div>
 
-      <div class="hero-grid">
+      <div class="story-hero-grid">
         <div>
-          <p class="section-kicker">Rideshare Demand Forecasting</p>
-          <h1 id="project-title">Predicting where rideshare demand will be up to two hours ahead.</h1>
-          <p class="lead">
-            This project looked at whether recent rideshare activity and information about the city could be used to estimate where pickup demand would rise or fall next.
+          <p class="story-kicker">Rideshare Demand Forecasting</p>
+          <h1 id="project-title">Where will people need rides next?</h1>
+          <p class="hero-lead">
+            I explored whether recent pickup activity and information about different parts of Chicago
+            could help forecast rideshare demand up to two hours into the future.
           </p>
-          <p class="hero-question">Can we give rideshare operators more time to prepare for where people will need rides?</p>
+
+          <div class="story-metrics" aria-label="Project at a glance">
+            <div class="story-metric"><strong>774</strong><span>Chicago areas</span></div>
+            <div class="story-metric"><strong>15 min</strong><span>Per demand snapshot</span></div>
+            <div class="story-metric"><strong>2 hours</strong><span>Forecast horizon</span></div>
+          </div>
         </div>
 
-        <div class="hero-side">
-          <img
-            src="rideshare-hero.png"
-            alt="Chicago rideshare demand visualization"
-            class="hero-image"
-          />
-          <p class="hero-image-caption">Chicago · rideshare demand forecasting</p>
+        <div class="story-hero-visual">
+          <img src="rideshare-hero.png" alt="Chicago rideshare demand visualization" class="story-hero-image" />
+          <p class="story-caption">A citywide view of changing rideshare demand.</p>
+        </div>
+      </div>
+    </section>
 
-          <div class="hero-stats" aria-label="Project at a glance">
-            <div class="stat"><strong>774</strong><span>Chicago areas included in the study</span></div>
-            <div class="stat"><strong>15 min</strong><span>Each demand snapshot</span></div>
-            <div class="stat"><strong>2.5 hours</strong><span>Recent demand used as context</span></div>
-            <div class="stat"><strong>2 hours</strong><span>How far ahead the project predicted</span></div>
+    <section class="case-section" aria-labelledby="rideshare-problem">
+      <div class="story-section-head">
+        <p class="story-kicker">01 · Why it matters</p>
+        <h2 id="rideshare-problem">Demand moves around a city throughout the day.</h2>
+        <p>
+          A busy area now may be quiet an hour later. Knowing where demand is likely to move gives
+          rideshare operators more time to position vehicles and can reduce unnecessary waiting and idling.
+        </p>
+      </div>
+
+      <div class="story-process" aria-label="Rideshare forecasting idea">
+        <div class="story-step">
+          <strong>See what is happening now</strong>
+          <span>Recent pickup activity</span>
+        </div>
+        <div class="story-arrow" aria-hidden="true">→</div>
+        <div class="story-step">
+          <strong>Understand the city around it</strong>
+          <span>Nearby and similar areas</span>
+        </div>
+        <div class="story-arrow" aria-hidden="true">→</div>
+        <div class="story-step">
+          <strong>Estimate what happens next</strong>
+          <span>Future pickup demand</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="rideshare-how">
+      <div class="story-section-head">
+        <p class="story-kicker">02 · How it worked</p>
+        <h2 id="rideshare-how">Instead of treating Chicago as one number, I looked at the city area by area.</h2>
+        <p>
+          Each census tract represented one part of Chicago. The project used recent pickup activity
+          together with a small amount of context about how those areas relate to one another.
+        </p>
+      </div>
+
+      <div class="story-two-col">
+        <div>
+          <div class="story-image-frame">
+            <img src="chicago-census-tracts.png" alt="Map of Chicago census tracts used in the project" />
+          </div>
+          <p class="story-caption">774 Chicago census tracts were included in the study.</p>
+        </div>
+
+        <div>
+          <ul class="story-list" aria-label="City information used">
+            <li><strong>Nearby areas</strong><span>Which parts of the city directly border one another.</span></li>
+            <li><strong>Distance</strong><span>How far apart different parts of Chicago are.</span></li>
+            <li><strong>Similar communities</strong><span>Population, housing density, and household income provided additional context.</span></li>
+          </ul>
+
+          <div class="story-time">
+            <div class="story-time-labels">
+              <span>2.5 hours of recent demand</span>
+              <span>2 hours predicted</span>
+            </div>
+            <div class="story-time-track" aria-hidden="true">
+              <div class="story-time-past"></div>
+              <div class="story-time-future"></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="case-section" aria-labelledby="problem-heading">
-      <p class="section-kicker">01 · The Problem</p>
-      <h2 id="problem-heading">Rideshare demand can change quickly from one part of a city to another.</h2>
-      <p class="section-copy">
-        A busy area now may not be busy an hour from now. At the same time, activity in one neighborhood can be related to what is happening nearby. Better forecasts can give rideshare operators more time to position vehicles where they are likely to be needed and reduce unnecessary waiting or idling.
-      </p>
+    <section class="case-section" aria-labelledby="rideshare-data">
+      <div class="story-section-head">
+        <p class="story-kicker">03 · The data</p>
+        <h2 id="rideshare-data">Real rideshare trips became a timeline of pickup activity across Chicago.</h2>
+        <p>
+          Trip records came from the Chicago Data Portal and were grouped by area and 15-minute interval.
+          Public Census data provided the additional information describing different parts of the city.
+        </p>
+      </div>
 
-      <div class="problem-flow" aria-label="Rideshare forecasting problem">
-        <div class="flow-box"><strong>Watch recent pickups</strong><span>Track how demand has been changing.</span></div>
-        <div class="flow-arrow" aria-hidden="true">→</div>
-        <div class="flow-box"><strong>Understand the city</strong><span>Consider how different areas are connected or similar.</span></div>
-        <div class="flow-arrow" aria-hidden="true">→</div>
-        <div class="flow-box"><strong>Look ahead</strong><span>Estimate demand for the next two hours.</span></div>
+      <div class="story-metrics">
+        <div class="story-metric"><strong>23,232</strong><span>training snapshots</span></div>
+        <div class="story-metric"><strong>8 months</strong><span>training period</span></div>
+        <div class="story-metric"><strong>45 days</strong><span>separate test period</span></div>
       </div>
     </section>
 
-    <section class="case-section" aria-labelledby="city-heading">
-      <p class="section-kicker">02 · Breaking Chicago Into Areas</p>
-      <h2 id="city-heading">The project treated Chicago as hundreds of smaller areas instead of one citywide total.</h2>
+    <section class="case-section" aria-labelledby="rideshare-result">
+      <div class="story-section-head">
+        <p class="story-kicker">04 · What I found</p>
+        <h2 id="rideshare-result">Adding more context about the city helped the longer-range forecasts hold up better.</h2>
+        <p>
+          I compared several versions of the forecasting approach on a separate period of Chicago rideshare data.
+          The strongest version performed best at each future checkpoint in the two-hour forecast.
+        </p>
+      </div>
 
-      <div class="graph-grid">
-        <div>
-          <div class="map-frame">
-            <img src="chicago-census-tracts.png" alt="Map of the Chicago census tracts used in the rideshare forecasting project" />
-          </div>
-          <p class="image-caption">The study used 774 Chicago census tracts so demand could be predicted separately across the city.</p>
+      <div class="story-result">
+        <div class="story-result-number">
+          <strong>8 / 8</strong>
+          <span>future checkpoints</span>
         </div>
-
-        <div class="plain-explain">
-          <p>
-            Each census tract represents one part of Chicago. The project also included simple information describing how those areas relate to one another.
+        <div class="story-result-copy">
+          <p><strong>The strongest approach had the lowest prediction error at every checkpoint.</strong></p>
+          <p class="story-muted">
+            The most noticeable benefit was farther into the future, where several comparison methods became less reliable more quickly.
           </p>
-
-          <div class="relationship"><strong>Nearby areas</strong><span>Which parts of the city directly border one another.</span></div>
-          <div class="relationship"><strong>Distance</strong><span>How far apart different areas are.</span></div>
-          <div class="relationship"><strong>Similar communities</strong><span>Population, housing density, and household income were used to describe areas that may behave similarly.</span></div>
         </div>
       </div>
     </section>
 
-    <section class="case-section" aria-labelledby="window-heading">
-      <p class="section-kicker">03 · What Goes In and What Comes Out</p>
-      <h2 id="window-heading">The project looks at recent demand, then predicts the next two hours.</h2>
-      <p class="section-copy">
-        Demand was grouped into 15-minute intervals. Ten recent intervals were used to understand what had been happening, and the next eight intervals were predicted.
-      </p>
+    <section class="case-section" aria-labelledby="rideshare-reflection">
+      <div class="story-section-head">
+        <p class="story-kicker">05 · Looking back</p>
+        <h2 id="rideshare-reflection">The main lesson was simple: places in a city do not behave independently.</h2>
+        <p>
+          Looking beyond one location's recent history gave the forecasting system a better picture of what was happening across Chicago.
+          If I continued the project, I would focus on extending the dataset and testing the idea at larger scales.
+        </p>
+      </div>
 
-      <div class="time-window" aria-label="Observation and prediction window">
-        <div class="time-labels">
-          <div>Recent history · 10 snapshots</div>
-          <div>Future · 8 predictions</div>
-        </div>
-        <div class="timeline-strip" aria-hidden="true">
-          <span class="tick obs"></span><span class="tick obs"></span><span class="tick obs"></span><span class="tick obs"></span><span class="tick obs"></span>
-          <span class="tick obs"></span><span class="tick obs"></span><span class="tick obs"></span><span class="tick obs"></span><span class="tick obs"></span>
-          <span class="tick pred"></span><span class="tick pred"></span><span class="tick pred"></span><span class="tick pred"></span>
-          <span class="tick pred"></span><span class="tick pred"></span><span class="tick pred"></span><span class="tick pred"></span>
-        </div>
-        <div class="time-notes">
-          <div>2.5 hours of recent pickup activity</div>
-          <div>2 hours of future pickup estimates</div>
-        </div>
+      <div class="story-future">
+        <div class="story-future-row"><strong>More history</strong><span>Train on a longer period of rideshare activity.</span></div>
+        <div class="story-future-row"><strong>More city context</strong><span>Explore other characteristics that may help explain changing demand.</span></div>
+        <div class="story-future-row"><strong>Real-world use</strong><span>Study how forecasts could support vehicle positioning and planning.</span></div>
       </div>
     </section>
 
-    <section class="case-section" aria-labelledby="approach-heading">
-      <p class="section-kicker">04 · The Approach</p>
-      <h2 id="approach-heading">The main idea was to combine recent demand with information about how the city is connected.</h2>
-      <p class="section-copy">
-        Rather than making a forecast from pickup counts alone, the project tested whether adding information about nearby, farther-away, and similar areas could improve longer-range predictions.
-      </p>
-
-      <div class="pipeline" aria-label="Plain-language forecasting process">
-        <div class="pipeline-box"><span class="pipeline-num">1</span><strong>Recent pickups</strong><span>See what demand has been doing lately</span></div>
-        <div class="pipeline-arrow" aria-hidden="true">→</div>
-        <div class="pipeline-box"><span class="pipeline-num">2</span><strong>City relationships</strong><span>Use nearby, distant, and similar areas as added context</span></div>
-        <div class="pipeline-arrow" aria-hidden="true">→</div>
-        <div class="pipeline-box"><span class="pipeline-num">3</span><strong>Learn the pattern</strong><span>Combine recent changes across the city</span></div>
-        <div class="pipeline-arrow" aria-hidden="true">→</div>
-        <div class="pipeline-box final"><span class="pipeline-num">4</span><strong>Predict demand</strong><span>Estimate pickup activity up to two hours ahead</span></div>
+    <section class="case-section" aria-labelledby="rideshare-resources">
+      <div class="story-section-head">
+        <p class="story-kicker">Project resources</p>
+        <h2 id="rideshare-resources">Want the technical version?</h2>
+        <p>
+          This page focuses on the idea and what I learned. The full report contains the detailed methods and complete experiment.
+        </p>
       </div>
 
-      <div class="model-variants" aria-label="Three ideas tested in the project">
-        <article class="variant">
-          <h3>Look beyond immediate neighbors</h3>
-          <p>Use both nearby and farther-away parts of Chicago when looking for useful demand patterns.</p>
-        </article>
-        <article class="variant">
-          <h3>Add more city context</h3>
-          <p>Include distance and community characteristics instead of relying only on pickup history.</p>
-        </article>
-        <article class="variant winner">
-          <h3>Combine more information</h3>
-          <p>The strongest version gave the forecasting system more opportunity to combine demand and city information before making its predictions.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="case-section" aria-labelledby="data-heading">
-      <p class="section-kicker">05 · The Data</p>
-      <h2 id="data-heading">The experiment used real rideshare trips and public information about Chicago.</h2>
-      <p class="section-copy">
-        Pickup records came from the Chicago Data Portal, while information about the census tracts came from Census.gov. Trips without usable pickup locations were removed, then the remaining rides were grouped by area and 15-minute interval.
-      </p>
-
-      <div class="data-grid">
-        <div class="data-stat"><strong>23,232</strong><span>15-minute training snapshots</span></div>
-        <div class="data-stat"><strong>8 months</strong><span>Training data from January–August 2021</span></div>
-        <div class="data-stat"><strong>45 days</strong><span>Separate test period in late 2022</span></div>
-        <div class="data-stat"><strong>774 areas</strong><span>Demand estimated across Chicago</span></div>
-      </div>
-    </section>
-
-    <section class="case-section" aria-labelledby="results-heading">
-      <p class="section-kicker">06 · Results</p>
-      <h2 id="results-heading">The best version stayed more reliable as the forecast reached farther into the future.</h2>
-      <p class="section-copy">
-        Several forecasting approaches were compared on a separate set of Chicago rideshare data. The strongest version of the project produced the lowest prediction error at every one of the eight future checkpoints.
-      </p>
-
-      <div class="simple-results" aria-label="Main project results">
-        <div class="simple-result">
-          <strong>Best at all 8 checkpoints</strong>
-          <span>The strongest approach had the lowest prediction error throughout the full forecast.</span>
-        </div>
-        <div class="simple-result">
-          <strong>Up to 2 hours ahead</strong>
-          <span>The improvement continued through the longest prediction point tested.</span>
-        </div>
-        <div class="simple-result">
-          <strong>Most useful farther ahead</strong>
-          <span>Several comparison methods became less reliable more quickly as the forecast moved into the future.</span>
-        </div>
-      </div>
-
-      <div class="result-summary">
-        <strong>Main takeaway:</strong> using more information about how different parts of Chicago relate to one another helped the project make stronger longer-range rideshare forecasts.
-      </div>
-    </section>
-
-    <section class="case-section" aria-labelledby="takeaway-heading">
-      <p class="section-kicker">07 · What I Took From It</p>
-      <h2 id="takeaway-heading">A city is more than a collection of independent neighborhoods.</h2>
-      <p class="section-copy">
-        The project showed that forecasting demand farther into the future can benefit from looking beyond the recent history of one location. Information about neighboring areas, distance, and community characteristics gave the forecasting system a richer picture of what was happening across Chicago.
-      </p>
-
-      <div class="future-grid">
-        <div class="future"><strong>More historical data</strong><span>Train on a longer period of rideshare activity.</span></div>
-        <div class="future"><strong>More city information</strong><span>Explore other characteristics that may help explain demand.</span></div>
-        <div class="future"><strong>Larger areas</strong><span>Test how well the idea works on even larger transportation networks.</span></div>
-        <div class="future"><strong>Real-world use</strong><span>Study how forecasts could support vehicle positioning and planning.</span></div>
-      </div>
-    </section>
-
-    <section class="case-section" aria-labelledby="resources-heading">
-      <p class="section-kicker">Project Resources</p>
-      <h2 id="resources-heading">Want the technical details?</h2>
-      <p class="section-copy muted">
-        This page intentionally focuses on the transportation problem and the main ideas. The full report contains the detailed methods, equations, training setup, and complete comparisons.
-      </p>
-      <div class="resource-links">
-        <a href="rideshare-demand-report.pdf" target="_blank" rel="noopener">Read the full report (PDF) →</a>
+      <div class="story-links">
+        <a href="rideshare-demand-report.pdf" target="_blank" rel="noopener">Read the full report →</a>
         <a href="projects.html">Back to all projects →</a>
       </div>
     </section>
