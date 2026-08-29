@@ -154,7 +154,35 @@ layout: none
     .hero .lead{margin:0;max-width:760px;color:var(--muted);font-size:clamp(1.02rem,1.8vw,1.18rem)}
     .hero-question{margin:22px 0 0;padding-left:14px;border-left:3px solid var(--blue);font-weight:650;max-width:690px}
 
-    .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .hero-side{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      min-width:0;
+    }
+
+    .hero-image{
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      display:block;
+      border:1px solid var(--border-strong);
+      border-radius:14px;
+      background:var(--panel-2);
+    }
+
+    .hero-image-caption{
+      margin:-10px 2px 0;
+      color:var(--muted);
+      font-size:.74rem;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+
     .stat{
       padding:16px;
       border:1px solid var(--border-strong);
@@ -368,7 +396,9 @@ layout: none
 
     @media (max-width:940px){
       .hero-grid,.graph-grid,.results-grid{grid-template-columns:1fr}
+      .hero-side{max-width:620px}
       .hero-stats{max-width:620px}
+      .hero-image{aspect-ratio:16/7}
       .pipeline,.problem-flow{grid-template-columns:1fr}
       .pipeline-arrow,.flow-arrow{transform:rotate(90deg);justify-self:center}
       .pipeline-box,.flow-box{min-height:94px}
@@ -410,6 +440,7 @@ layout: none
       .hero{padding:24px 18px}
       .hero h1{font-size:clamp(2.2rem,12vw,3.3rem)}
       .hero-stats,.data-grid,.future-grid{grid-template-columns:1fr}
+      .hero-image{aspect-ratio:16/9}
       .time-labels,.time-notes{grid-template-columns:1fr}
       .timeline-strip{grid-template-columns:repeat(9,1fr)}
       .tick{height:24px}
@@ -495,11 +526,20 @@ layout: none
           <p class="hero-question">Can we give rideshare operators more time to prepare for where people will need rides?</p>
         </div>
 
-        <div class="hero-stats" aria-label="Project at a glance">
-          <div class="stat"><strong>774</strong><span>Chicago areas included in the study</span></div>
-          <div class="stat"><strong>15 min</strong><span>Each demand snapshot</span></div>
-          <div class="stat"><strong>2.5 hours</strong><span>Recent demand used as context</span></div>
-          <div class="stat"><strong>2 hours</strong><span>How far ahead the project predicted</span></div>
+        <div class="hero-side">
+          <img
+            src="rideshare-hero.png"
+            alt="Chicago rideshare demand visualization"
+            class="hero-image"
+          />
+          <p class="hero-image-caption">Chicago · rideshare demand forecasting</p>
+
+          <div class="hero-stats" aria-label="Project at a glance">
+            <div class="stat"><strong>774</strong><span>Chicago areas included in the study</span></div>
+            <div class="stat"><strong>15 min</strong><span>Each demand snapshot</span></div>
+            <div class="stat"><strong>2.5 hours</strong><span>Recent demand used as context</span></div>
+            <div class="stat"><strong>2 hours</strong><span>How far ahead the project predicted</span></div>
+          </div>
         </div>
       </div>
     </section>
