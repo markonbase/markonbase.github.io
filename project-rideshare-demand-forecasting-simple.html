@@ -821,6 +821,27 @@ layout: none
       }
     }
 
+
+    /* Hero metrics sit directly beneath the image */
+    .hero-metrics{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-top:16px;
+      padding-top:16px;
+    }
+
+    .hero-metrics .story-metric{
+      min-width:0;
+    }
+
+    @media (max-width:520px){
+      .hero-metrics{
+        grid-template-columns:1fr;
+        gap:12px;
+      }
+    }
+
   </style>
 </head>
 
@@ -888,16 +909,17 @@ layout: none
             could help forecast rideshare demand up to two hours into the future.
           </p>
 
-          <div class="story-metrics" aria-label="Project at a glance">
-            <div class="story-metric"><strong>774</strong><span>Chicago areas</span></div>
-            <div class="story-metric"><strong>15 min</strong><span>Per demand snapshot</span></div>
-            <div class="story-metric"><strong>2 hours</strong><span>Forecast horizon</span></div>
-          </div>
         </div>
 
         <div class="story-hero-visual">
           <img src="rideshare-hero.png" alt="Chicago rideshare demand visualization" class="story-hero-image" />
           <p class="story-caption">A citywide view of changing rideshare demand.</p>
+
+          <div class="story-metrics hero-metrics" aria-label="Project at a glance">
+            <div class="story-metric"><strong>774</strong><span>Chicago areas</span></div>
+            <div class="story-metric"><strong>15 min</strong><span>Per demand snapshot</span></div>
+            <div class="story-metric"><strong>2 hours</strong><span>Forecast horizon</span></div>
+          </div>
         </div>
       </div>
     </section>
