@@ -1,0 +1,1029 @@
+---
+layout: none
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Technical walkthrough of a graph-based rideshare demand forecasting project in Chicago." />
+  <title>Technical Walkthrough — Rideshare Demand Forecasting</title>
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --panel:#11141a;
+      --panel-2:#151922;
+      --text:#e7ebf0;
+      --muted:#97a2b0;
+      --link:#79b8ff;
+      --accent:#21c55d;
+      --blue:#5aa7ff;
+      --blue-soft:rgba(90,167,255,.10);
+      --border:rgba(127,127,127,.20);
+      --border-strong:rgba(127,127,127,.34);
+      --sidebar-w:300px;
+      --radius:16px;
+    }
+
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f9fc;
+        --panel:#fff;
+        --panel-2:#f1f4f8;
+        --text:#0c1116;
+        --muted:#526074;
+        --link:#0066cc;
+        --border:rgba(30,45,65,.14);
+        --border-strong:rgba(30,45,65,.24);
+        --blue-soft:rgba(0,102,204,.07);
+      }
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{min-height:100%;margin:0}
+
+    body{
+      font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+
+    body.menu-open{overflow:hidden}
+    img{max-width:100%}
+    a{color:var(--link)}
+
+    /* Sidebar */
+    .sidebar{
+      position:fixed;
+      inset:0 auto 0 0;
+      width:var(--sidebar-w);
+      padding:12px 18px 24px;
+      background:var(--panel);
+      border-right:1px solid var(--border);
+      overflow-y:auto;
+      z-index:150;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+    }
+
+    .brand .logo{
+      display:block;
+      width:100%;
+      height:auto;
+      max-width:240px;
+      margin:0 0 6px;
+    }
+
+    .brand h1{margin:0 0 6px;font-size:1.5rem}
+    .tagline{margin:0 0 18px;color:var(--muted)}
+
+    .nav{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      margin:12px 0 18px;
+      text-align:center;
+    }
+
+    .nav a{
+      display:inline-block;
+      color:var(--text);
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+
+    .nav a:hover,.nav a:focus{
+      background:rgba(127,127,127,.12);
+      outline:none;
+    }
+
+    .nav a.active{
+      color:var(--accent);
+      border-bottom:2px solid var(--accent);
+      padding-bottom:6px;
+    }
+
+    .downloads h2,.links h2{
+      margin:18px 0 8px;
+      color:var(--muted);
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.10em;
+    }
+
+    .downloads ul,.links ul{list-style:none;margin:0;padding:0}
+    .downloads li,.links li{margin:6px 0}
+    .downloads a,.links a{color:var(--link);text-decoration:none}
+
+    /* Main */
+    .content{
+      margin-left:var(--sidebar-w);
+      width:calc(100% - var(--sidebar-w));
+      max-width:1120px;
+      padding:38px 34px 54px;
+    }
+
+    .content a{text-decoration:none}
+    .content a:hover,.content a:focus{opacity:.82}
+
+    .back-link{
+      display:inline-flex;
+      margin:0 0 18px;
+      font-size:.94rem;
+    }
+
+    .tech-section{
+      padding:58px 2px;
+      border-bottom:1px solid var(--border);
+    }
+
+    .tech-section:last-of-type{border-bottom:0}
+
+    .hero{
+      padding:clamp(26px,4vw,42px);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:
+        radial-gradient(circle at 92% 8%,rgba(90,167,255,.15),transparent 31%),
+        var(--panel);
+    }
+
+    .eyebrow{
+      margin:0 0 8px;
+      color:var(--blue);
+      font-size:.74rem;
+      font-weight:800;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:0;
+      max-width:800px;
+      font-size:clamp(2.25rem,4.5vw,4rem);
+      line-height:1.02;
+      letter-spacing:-.045em;
+    }
+
+    h2{
+      margin:0 0 12px;
+      max-width:790px;
+      font-size:clamp(1.45rem,2.5vw,2rem);
+      line-height:1.18;
+      letter-spacing:-.02em;
+    }
+
+    h3{margin:0 0 7px;font-size:1rem}
+
+    .lead{
+      max-width:760px;
+      margin:18px 0 0;
+      color:var(--muted);
+      font-size:1.06rem;
+    }
+
+    .hero-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      margin-top:22px;
+    }
+
+    .section-head{
+      max-width:780px;
+      margin-bottom:28px;
+    }
+
+    .section-head p{
+      max-width:720px;
+      margin:0;
+      color:var(--muted);
+    }
+
+    .plain{
+      max-width:720px;
+      margin:0;
+    }
+
+    .muted{color:var(--muted)}
+
+    /* Formal setup */
+    .formal-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(270px,.72fr);
+      gap:34px;
+      align-items:start;
+    }
+
+
+    .symbol-list{
+      margin:0;
+      border-top:1px solid var(--border);
+    }
+
+    .symbol-row{
+      display:grid;
+      grid-template-columns:62px minmax(0,1fr);
+      gap:14px;
+      padding:11px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .symbol-row code{
+      color:var(--blue);
+      font-weight:700;
+    }
+
+    .symbol-row span{
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    /* Figures */
+    .figure{
+      margin-top:26px;
+    }
+
+    .figure img{
+      display:block;
+      width:100%;
+      max-height:620px;
+      object-fit:contain;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+    }
+
+    .figure.small img{
+      max-width:880px;
+    }
+
+    .caption{
+      max-width:780px;
+      margin:9px 2px 0;
+      color:var(--muted);
+      font-size:.79rem;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+      gap:36px;
+      align-items:center;
+    }
+
+    /* Open technical lists */
+    .tech-list{
+      margin:22px 0 0;
+      padding:0;
+      list-style:none;
+      border-top:1px solid var(--border);
+    }
+
+    .tech-list li{
+      display:grid;
+      grid-template-columns:minmax(145px,.30fr) minmax(0,.70fr);
+      gap:22px;
+      padding:14px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .tech-list strong{font-size:.92rem}
+    .tech-list span{color:var(--muted);font-size:.9rem}
+
+    /* Model variants */
+    .variants{
+      margin-top:24px;
+      border-top:1px solid var(--border);
+    }
+
+    .variant{
+      display:grid;
+      grid-template-columns:185px minmax(0,1fr);
+      gap:26px;
+      padding:17px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .variant-name{
+      font-weight:760;
+    }
+
+    .variant p{
+      margin:0;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .variant.best .variant-name{
+      color:var(--blue);
+    }
+
+    /* Experiment table */
+    .setup-table{
+      width:100%;
+      max-width:760px;
+      margin-top:24px;
+      border-collapse:collapse;
+      font-size:.9rem;
+    }
+
+    .setup-table th,
+    .setup-table td{
+      padding:10px 12px;
+      text-align:left;
+      border-bottom:1px solid var(--border);
+    }
+
+    .setup-table th{
+      width:46%;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    /* Results */
+    .result-note{
+      max-width:760px;
+      margin:22px 0 0;
+      padding:15px 17px;
+      border-left:3px solid var(--blue);
+      background:var(--blue-soft);
+      color:var(--muted);
+    }
+
+    .result-note strong{color:var(--text)}
+
+    .metric-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:20px 34px;
+      margin:22px 0 0;
+      padding:18px 0;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
+    .metric strong{
+      display:block;
+      font-size:1.45rem;
+      line-height:1.1;
+    }
+
+    .metric span{
+      display:block;
+      margin-top:4px;
+      color:var(--muted);
+      font-size:.78rem;
+    }
+
+    /* Mobile nav */
+    .mobile-header{display:none}
+    .menu-backdrop{display:none}
+
+    .footer{
+      margin:34px 0 0;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    @media (max-width:940px){
+      .formal-grid,.split{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:860px){
+      .mobile-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        position:fixed;
+        inset:0 0 auto 0;
+        height:60px;
+        padding:0 16px;
+        background:var(--panel);
+        border-bottom:1px solid var(--border);
+        z-index:200;
+      }
+
+      .mobile-brand{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        min-width:0;
+      }
+
+      .mobile-logo{height:36px;width:auto;border-radius:6px}
+      .mobile-name{
+        overflow:hidden;
+        color:var(--text);
+        font-size:1rem;
+        font-weight:650;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+
+      .menu-toggle{
+        min-width:44px;
+        min-height:44px;
+        padding:0;
+        border:0;
+        border-radius:10px;
+        color:var(--text);
+        background:none;
+        font-size:1.55rem;
+        cursor:pointer;
+      }
+
+      .sidebar{
+        top:60px;
+        left:-100%;
+        bottom:0;
+        height:calc(100% - 60px);
+        width:min(88vw,var(--sidebar-w));
+        transition:left .25s ease;
+        box-shadow:12px 0 36px rgba(0,0,0,.22);
+      }
+
+      .sidebar.active{left:0}
+
+      .menu-backdrop{
+        display:block;
+        position:fixed;
+        inset:60px 0 0;
+        z-index:140;
+        pointer-events:none;
+        background:rgba(0,0,0,0);
+        transition:background .25s ease;
+      }
+
+      .menu-backdrop.active{
+        pointer-events:auto;
+        background:rgba(0,0,0,.44);
+      }
+
+      .content{
+        width:100%;
+        max-width:none;
+        margin:0;
+        padding:84px 18px 42px;
+      }
+
+      .nav{
+        flex-direction:row;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:10px 14px;
+      }
+
+      .nav a{
+        display:inline-flex;
+        width:auto;
+        padding:6px 9px;
+      }
+    }
+
+    @media (max-width:680px){
+      .tech-section{padding:44px 0}
+      .hero{padding:24px 18px}
+
+      .tech-list li,
+      .variant{
+        grid-template-columns:1fr;
+        gap:4px;
+      }
+
+      .setup-table th,
+      .setup-table td{
+        display:block;
+        width:100%;
+        padding-left:0;
+        padding-right:0;
+      }
+
+      .setup-table th{
+        border-bottom:0;
+        padding-bottom:2px;
+      }
+
+      .setup-table td{
+        padding-top:2px;
+      }
+
+      .equation{
+        font-size:.82rem;
+      }
+    }
+
+    :focus-visible{
+      outline:2px solid var(--accent);
+      outline-offset:2px;
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *{animation:none!important;transition:none!important}
+    }
+
+    /* Proper mathematical typesetting */
+    .math-block{
+      margin:22px 0;
+      padding:18px 20px;
+      overflow-x:auto;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:var(--panel-2);
+      color:var(--text);
+    }
+
+    .math-block mjx-container{
+      color:var(--text) !important;
+    }
+
+    .math-block mjx-container[display="true"]{
+      margin:.25em 0 !important;
+      text-align:center !important;
+      min-width:max-content;
+    }
+
+    .math-caption{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:.78rem;
+      text-align:center;
+    }
+
+    .math-explain{
+      max-width:720px;
+      margin:12px 0 0;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .inline-math-note{
+      color:var(--muted);
+    }
+
+    @media (max-width:680px){
+      .math-block{
+        padding:15px 12px;
+      }
+
+      .math-block mjx-container{
+        font-size:92% !important;
+      }
+
+      .math-caption{
+        text-align:left;
+      }
+    }
+
+
+    .contact-cta{
+      max-width:760px;
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid var(--border);
+    }
+
+    .contact-cta p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .contact-cta strong{
+      color:var(--text);
+    }
+
+  </style>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      },
+      chtml: {
+        scale: 1
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+</head>
+
+<body>
+  <header class="mobile-header" role="banner">
+    <div class="mobile-brand">
+      <img src="logo.png" alt="" class="mobile-logo" />
+      <span class="mobile-name">Mark Hernandez</span>
+    </div>
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">☰</button>
+  </header>
+
+  <div class="menu-backdrop" aria-hidden="true"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+    <div class="brand">
+      <img src="logo.png" alt="Mark Hernandez logo" class="logo" />
+      <h1>Mark Hernandez</h1>
+      <p class="tagline">Transportation · Deep Learning · Cybersecurity</p>
+    </div>
+
+    <nav class="nav">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="index.html#presentations">Presentations/Talks</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="downloads">
+      <h2>Downloads</h2>
+      <ul>
+        <li><a href="resume.pdf" download>Resume (PDF)</a></li>
+        <li><a href="cv.pdf" download>CV (PDF)</a></li>
+      </ul>
+    </div>
+
+    <div class="links">
+      <h2>Links</h2>
+      <ul>
+        <li><a href="https://github.com/markonbase" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="mailto:markherna05@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="content">
+    <a class="back-link" href="project-rideshare-demand-forecasting-clean-metrics-below-image.html">← Back to project overview</a>
+
+    <section class="tech-section hero">
+      <p class="eyebrow">Technical Walkthrough</p>
+      <h1>How the rideshare forecasting model was built.</h1>
+      <p class="lead">
+        This page goes one level deeper than the project overview: how Chicago was represented as a graph,
+        how information moved through the model, which variants were tested, and how the final approach was evaluated.
+      </p>
+
+      <div class="hero-links">
+        <a href="#formulation">Start with the formulation ↓</a>
+      </div>
+    </section>
+
+    <section class="tech-section" id="formulation">
+      <div class="section-head">
+        <p class="eyebrow">01 · Problem formulation</p>
+        <h2>The city becomes a graph, and demand becomes a sequence over that graph.</h2>
+        <p>
+          The model does not predict one citywide demand value. It predicts pickup demand for every census tract,
+          at several future time steps, using the recent demand history across the whole network.
+        </p>
+      </div>
+
+      <div class="formal-grid">
+        <div>
+          <p class="plain">
+            The transportation network is represented as <strong>G = (V, E, A)</strong>. Each node is a Chicago census tract,
+            the edges describe relationships between tracts, and the adjacency representation <strong>A</strong> tells the model
+            how information can move through the network.
+          </p>
+
+          <div class="math-block" aria-label="Spatiotemporal graph formulation">
+            \[
+              \mathcal{G}\!\left(
+                V_n,\,
+                \mathcal{E},\,
+                A_{N \times N};
+                X_{T \times N \times C}
+              \right)
+            \]
+            <p class="math-caption">Equation 1 · Spatiotemporal graph representation</p>
+          </div>
+
+          <p class="math-explain">
+            \(V_n\) is the set of census-tract nodes, \(\mathcal{E}\) represents their connections,
+            \(A\) describes the graph structure, and \(X\) stores demand over time.
+          </p>
+
+          <div class="math-block" aria-label="Sequence to sequence forecasting formulation">
+            \[
+              \widehat{X}^{\,pred}_{p \times N \times C}
+              =
+              \underset{X^{real}_{p \times N \times C}}{\operatorname{argmax}}\;
+              \Pr\!\left(
+                X^{real}_{p \times N \times C}
+                \mid
+                X^{obs}_{m \times N \times C};
+                \mathcal{G}
+              \right)
+            \]
+            <p class="math-caption">Equation 2 · Sequence-to-sequence prediction task</p>
+          </div>
+
+          <p class="math-explain">
+            The input contains \(m\) observed time steps and the output contains \(p\) future time steps.
+            In this experiment, \(m=10\), \(p=8\), and \(C=1\) because only pickup demand was modeled.
+          </p>
+        </div>
+
+        <div class="symbol-list" aria-label="Technical notation">
+          <div class="symbol-row"><code>N</code><span>774 census-tract nodes</span></div>
+          <div class="symbol-row"><code>C</code><span>1 demand variable: pickups</span></div>
+          <div class="symbol-row"><code>m</code><span>10 observed time steps</span></div>
+          <div class="symbol-row"><code>p</code><span>8 future prediction steps</span></div>
+          <div class="symbol-row"><code>Δt</code><span>15 minutes per time step</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-section">
+      <div class="section-head">
+        <p class="eyebrow">02 · Graph convolution</p>
+        <h2>A node learns from more than its own demand history.</h2>
+        <p>
+          Graph convolution lets information from one census tract be combined with information from connected tracts.
+          A receptive field controls how far that information can travel before the prediction is made.
+        </p>
+      </div>
+
+      <div class="split">
+        <div>
+          <p class="plain">
+            A <strong>1-hop</strong> receptive field reaches directly connected areas. A <strong>2-hop</strong> field reaches areas
+            connected through one intermediate node. Increasing <em>k</em> lets the model aggregate information from progressively
+            farther parts of the network.
+          </p>
+
+          <div class="math-block" aria-label="Graph convolutional layer equation">
+            \[
+              H^{(l+1)}
+              =
+              \sigma\!\left(
+                \widetilde{D}^{-\frac{1}{2}}
+                \widetilde{A}
+                \widetilde{D}^{-\frac{1}{2}}
+                H^{(l)}
+                W^{(l)}
+              \right)
+            \]
+            <p class="math-caption">Equation 3 · Graph convolutional layer</p>
+          </div>
+
+          <p class="math-explain">
+            The normalized graph term
+            \(\widetilde{D}^{-\frac{1}{2}}\widetilde{A}\widetilde{D}^{-\frac{1}{2}}\)
+            gathers information from connected nodes. \(H^{(l)}\) is the current node representation,
+            \(W^{(l)}\) contains learned weights, and \(\sigma\) applies the layer's activation.
+          </p>
+        </div>
+
+        <div class="figure">
+          <img src="rideshare-tech-k-hop.png" alt="Illustration of one-hop, two-hop, and farther graph neighborhoods around a central node" />
+          <p class="caption">Receptive-field illustration from the report. Different colors show progressively farther graph neighborhoods around node A.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-section">
+      <div class="section-head">
+        <p class="eyebrow">03 · Richer network information</p>
+        <h2>The graph was built from more than one definition of “close.”</h2>
+        <p>
+          The project created several relationships between census tracts so the model could use both physical geography
+          and socioeconomic similarity.
+        </p>
+      </div>
+
+      <ul class="tech-list">
+        <li><strong>Neighbor matrix</strong><span>Binary connection: whether two census tracts directly share a boundary.</span></li>
+        <li><strong>Distance matrix</strong><span>Centroid-to-centroid geographic distance between census tracts.</span></li>
+        <li><strong>Socioeconomic matrix</strong><span>Similarity based on average housing income, housing density, and population density using Pearson correlation.</span></li>
+      </ul>
+
+      <div class="math-block" aria-label="Neighbor adjacency matrix definition">
+        \[
+          A_{ij}
+          =
+          \begin{cases}
+            1, & \text{if census tract } j \text{ is a neighbor of } i,\\
+            0, & \text{otherwise.}
+          \end{cases}
+        \]
+        <p class="math-caption">Equation 4 · Direct-neighbor adjacency matrix</p>
+      </div>
+
+      <p class="math-explain">
+        This is the simplest of the three network relationships: two tracts are connected with a value of 1
+        when they directly share a boundary, and 0 otherwise.
+      </p>
+
+      <p class="result-note">
+        <strong>Network topology aggregator:</strong> the proposed model uses the network-characteristic data to form a compact
+        graph representation that can be supplied alongside current demand.
+      </p>
+    </section>
+
+    <section class="tech-section">
+      <div class="section-head">
+        <p class="eyebrow">04 · Proposed model variants</p>
+        <h2>Three extensions tested different ways of giving the model more spatial context.</h2>
+        <p>
+          All three approaches extend the Dynamic Graph Convolution framework used as the starting point for the project.
+        </p>
+      </div>
+
+      <div class="variants">
+        <div class="variant">
+          <div class="variant-name">Multi-scale DGC</div>
+          <p>Uses multiple network resolutions so the model can aggregate demand patterns across different spatial reaches.</p>
+        </div>
+        <div class="variant">
+          <div class="variant-name">Multi-scale / horizon DGC</div>
+          <p>Adds the second receptive-field pathway together with the network topology aggregator.</p>
+        </div>
+        <div class="variant best">
+          <div class="variant-name">Deep DGC</div>
+          <p>Adds another graph-convolution layer and the network topology aggregator to extract richer spatiotemporal features.</p>
+        </div>
+      </div>
+
+      <div class="figure small">
+        <img src="rideshare-tech-dgc-module.png" alt="Technical diagram of the modified dynamic graph convolution module" />
+        <p class="caption">
+          The modified DGC module combines current demand, the previous hidden state, and the network representation before passing information onward.
+        </p>
+      </div>
+    </section>
+
+    <section class="tech-section">
+      <div class="section-head">
+        <p class="eyebrow">05 · Sequence-to-sequence forecasting</p>
+        <h2>The graph module sits inside an encoder-decoder that turns recent history into a sequence of future predictions.</h2>
+        <p>
+          The encoder processes the observed demand sequence and summarizes it in a context state. The decoder then starts from
+          that context and generates the future demand sequence one step at a time.
+        </p>
+      </div>
+
+      <div class="figure">
+        <img src="rideshare-tech-encoder-decoder.png" alt="RNN encoder-decoder diagram used for multistep rideshare demand forecasting" />
+        <p class="caption">
+          Encoder-decoder architecture from the report: 10 observed time steps are summarized, then the decoder generates 8 future demand estimates.
+        </p>
+      </div>
+    </section>
+
+    <section class="tech-section">
+      <div class="section-head">
+        <p class="eyebrow">06 · Experiment setup</p>
+        <h2>Training and testing were separated in time.</h2>
+        <p>
+          The model was trained on eight months of 2021 rideshare data and evaluated on a later 45-day period in late 2022.
+          Inputs were normalized, a validation split was used during training, and early stopping limited unnecessary updates.
+        </p>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric"><strong>23,232</strong><span>training samples</span></div>
+        <div class="metric"><strong>774</strong><span>nodes</span></div>
+        <div class="metric"><strong>10 → 8</strong><span>observed → predicted steps</span></div>
+        <div class="metric"><strong>20%</strong><span>validation split</span></div>
+      </div>
+
+      <table class="setup-table" aria-label="Experiment hyperparameters">
+        <tbody>
+          <tr><th>Framework</th><td>TensorFlow / Python</td></tr>
+          <tr><th>Optimizer</th><td>Adam</td></tr>
+          <tr><th>Learning rate</th><td>0.005</td></tr>
+          <tr><th>Decay rate</th><td>0.001</td></tr>
+          <tr><th>Batch size</th><td>32</td></tr>
+          <tr><th>Maximum epochs</th><td>128</td></tr>
+          <tr><th>Early-stopping patience</th><td>5 epochs</td></tr>
+          <tr><th>Receptive field k₁</th><td>2</td></tr>
+          <tr><th>Second receptive field k₂</th><td>9 for variants using the second field</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="tech-section">
+      <div class="section-head">
+        <p class="eyebrow">07 · Results</p>
+        <h2>Deep DGC produced the lowest test error at every forecast step.</h2>
+        <p>
+          Performance was measured with root mean squared error (RMSE). RMSE is in the same general scale as the demand values:
+          <strong>lower is better</strong>. The important pattern is how each method changes as the forecast moves farther into the future.
+        </p>
+      </div>
+
+      <div class="figure">
+        <img src="rideshare-tech-loss-by-model.png" alt="Line plot comparing RMSE across eight prediction steps for the proposed and benchmark models" />
+        <p class="caption">
+          Test error across the eight prediction steps. Deep DGC remains below the other proposed and benchmark approaches throughout the forecast.
+        </p>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric"><strong>1.60</strong><span>Deep DGC RMSE at step 1</span></div>
+        <div class="metric"><strong>2.72</strong><span>Deep DGC RMSE at step 8</span></div>
+        <div class="metric"><strong>8 / 8</strong><span>steps with lowest reported error</span></div>
+      </div>
+
+      <p class="result-note">
+        <strong>Long-horizon behavior:</strong> after roughly the fourth prediction step, several benchmark methods degrade more sharply,
+        while the three proposed methods remain comparatively consistent.
+      </p>
+    </section>
+
+    <section class="tech-section">
+      <div class="section-head">
+        <p class="eyebrow">08 · Sensitivity analysis</p>
+        <h2>How dependent was Deep DGC on the chosen receptive-field size?</h2>
+        <p>
+          The receptive field was varied from 2 to 25 and checked at early, middle, and late prediction steps.
+          The goal was to see whether performance changed dramatically when the spatial reach changed.
+        </p>
+      </div>
+
+      <div class="figure">
+        <img src="rideshare-tech-receptive-field.png" alt="Sensitivity plot showing prediction error across receptive-field sizes" />
+        <p class="caption">
+          Sensitivity analysis from the report. The similar overall effect across different prediction steps was interpreted as evidence
+          that the model remained relatively stable across short- and long-term forecasting.
+        </p>
+      </div>
+    </section>
+
+    <section class="tech-section">
+      <div class="section-head">
+        <p class="eyebrow">09 · Technical takeaway</p>
+        <h2>The improvement came from giving the forecasting model a richer view of both space and time.</h2>
+        <p>
+          The proposed extensions let demand information travel across multiple spatial scales, added explicit network-characteristic data,
+          and increased the depth of the graph processing. In the reported experiment, the Deep DGC variant performed best across the full
+          two-hour prediction horizon.
+        </p>
+      </div>
+
+      <div class="contact-cta">
+        <p>
+          <strong>Want to go deeper into the technical details?</strong><br>
+          If you have questions about the model, experiment, or results, feel free to reach out.
+        </p>
+
+        <div class="hero-links">
+          <a href="mailto:markherna05@gmail.com">Contact me →</a>
+          <a href="project-rideshare-demand-forecasting-clean-metrics-below-image.html">← Back to project overview</a>
+          <a href="projects.html">All projects →</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Mark Hernandez · Built with GitHub Pages</p>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.querySelector('.menu-backdrop');
+
+    function setMenu(open){
+      sidebar.classList.toggle('active', open);
+      backdrop.classList.toggle('active', open);
+      document.body.classList.toggle('menu-open', open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    }
+
+    menuToggle.addEventListener('click', () => {
+      setMenu(!sidebar.classList.contains('active'));
+    });
+
+    backdrop.addEventListener('click', () => setMenu(false));
+
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 860) setMenu(false);
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860) setMenu(false);
+    });
+  </script>
+</body>
+</html>
