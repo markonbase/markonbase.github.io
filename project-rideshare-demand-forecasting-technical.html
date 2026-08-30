@@ -224,6 +224,17 @@ layout: none
       align-items:start;
     }
 
+    .equation{
+      margin:18px 0;
+      padding:16px 18px;
+      overflow-x:auto;
+      border-left:3px solid var(--blue);
+      background:var(--blue-soft);
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      font-size:.94rem;
+      line-height:1.7;
+      white-space:nowrap;
+    }
 
     .symbol-list{
       margin:0;
@@ -533,92 +544,7 @@ layout: none
       html{scroll-behavior:auto}
       *{animation:none!important;transition:none!important}
     }
-
-    /* Proper mathematical typesetting */
-    .math-block{
-      margin:22px 0;
-      padding:18px 20px;
-      overflow-x:auto;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:var(--panel-2);
-      color:var(--text);
-    }
-
-    .math-block mjx-container{
-      color:var(--text) !important;
-    }
-
-    .math-block mjx-container[display="true"]{
-      margin:.25em 0 !important;
-      text-align:center !important;
-      min-width:max-content;
-    }
-
-    .math-caption{
-      margin:8px 0 0;
-      color:var(--muted);
-      font-size:.78rem;
-      text-align:center;
-    }
-
-    .math-explain{
-      max-width:720px;
-      margin:12px 0 0;
-      color:var(--muted);
-      font-size:.9rem;
-    }
-
-    .inline-math-note{
-      color:var(--muted);
-    }
-
-    @media (max-width:680px){
-      .math-block{
-        padding:15px 12px;
-      }
-
-      .math-block mjx-container{
-        font-size:92% !important;
-      }
-
-      .math-caption{
-        text-align:left;
-      }
-    }
-
-
-    .contact-cta{
-      max-width:760px;
-      margin-top:22px;
-      padding-top:18px;
-      border-top:1px solid var(--border);
-    }
-
-    .contact-cta p{
-      margin:0;
-      color:var(--muted);
-    }
-
-    .contact-cta strong{
-      color:var(--text);
-    }
-
   </style>
-
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['\\(', '\\)']],
-        displayMath: [['\\[', '\\]']]
-      },
-      chtml: {
-        scale: 1
-      }
-    };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-
 </head>
 
 <body>
@@ -678,6 +604,7 @@ layout: none
 
       <div class="hero-links">
         <a href="#formulation">Start with the formulation ↓</a>
+        <a href="rideshare-demand-report.pdf" target="_blank" rel="noopener">Full report (PDF) →</a>
       </div>
     </section>
 
@@ -699,41 +626,14 @@ layout: none
             how information can move through the network.
           </p>
 
-          <div class="math-block" aria-label="Spatiotemporal graph formulation">
-            \[
-              \mathcal{G}\!\left(
-                V_n,\,
-                \mathcal{E},\,
-                A_{N \times N};
-                X_{T \times N \times C}
-              \right)
-            \]
-            <p class="math-caption">Equation 1 · Spatiotemporal graph representation</p>
+          <div class="equation">
+            X<sub>obs</sub> ∈ R<sup>m × N × C</sup> &nbsp;→&nbsp;
+            model(G, X<sub>obs</sub>) &nbsp;→&nbsp;
+            X<sub>pred</sub> ∈ R<sup>p × N × C</sup>
           </div>
 
-          <p class="math-explain">
-            \(V_n\) is the set of census-tract nodes, \(\mathcal{E}\) represents their connections,
-            \(A\) describes the graph structure, and \(X\) stores demand over time.
-          </p>
-
-          <div class="math-block" aria-label="Sequence to sequence forecasting formulation">
-            \[
-              \widehat{X}^{\,pred}_{p \times N \times C}
-              =
-              \underset{X^{real}_{p \times N \times C}}{\operatorname{argmax}}\;
-              \Pr\!\left(
-                X^{real}_{p \times N \times C}
-                \mid
-                X^{obs}_{m \times N \times C};
-                \mathcal{G}
-              \right)
-            \]
-            <p class="math-caption">Equation 2 · Sequence-to-sequence prediction task</p>
-          </div>
-
-          <p class="math-explain">
-            The input contains \(m\) observed time steps and the output contains \(p\) future time steps.
-            In this experiment, \(m=10\), \(p=8\), and \(C=1\) because only pickup demand was modeled.
+          <p class="plain muted">
+            In this experiment, the task used one demand variable: origin-based pickup demand.
           </p>
         </div>
 
@@ -765,26 +665,14 @@ layout: none
             farther parts of the network.
           </p>
 
-          <div class="math-block" aria-label="Graph convolutional layer equation">
-            \[
-              H^{(l+1)}
-              =
-              \sigma\!\left(
-                \widetilde{D}^{-\frac{1}{2}}
-                \widetilde{A}
-                \widetilde{D}^{-\frac{1}{2}}
-                H^{(l)}
-                W^{(l)}
-              \right)
-            \]
-            <p class="math-caption">Equation 3 · Graph convolutional layer</p>
+          <div class="equation">
+            H<sup>(l+1)</sup> =
+            σ(D̃<sup>−1/2</sup>ÃD̃<sup>−1/2</sup>H<sup>(l)</sup>W<sup>(l)</sup>)
           </div>
 
-          <p class="math-explain">
-            The normalized graph term
-            \(\widetilde{D}^{-\frac{1}{2}}\widetilde{A}\widetilde{D}^{-\frac{1}{2}}\)
-            gathers information from connected nodes. \(H^{(l)}\) is the current node representation,
-            \(W^{(l)}\) contains learned weights, and \(\sigma\) applies the layer's activation.
+          <p class="plain muted">
+            The normalized adjacency term mixes information across connected nodes; the learnable weight matrix
+            transforms those aggregated features into the next representation.
           </p>
         </div>
 
@@ -810,23 +698,6 @@ layout: none
         <li><strong>Distance matrix</strong><span>Centroid-to-centroid geographic distance between census tracts.</span></li>
         <li><strong>Socioeconomic matrix</strong><span>Similarity based on average housing income, housing density, and population density using Pearson correlation.</span></li>
       </ul>
-
-      <div class="math-block" aria-label="Neighbor adjacency matrix definition">
-        \[
-          A_{ij}
-          =
-          \begin{cases}
-            1, & \text{if census tract } j \text{ is a neighbor of } i,\\
-            0, & \text{otherwise.}
-          \end{cases}
-        \]
-        <p class="math-caption">Equation 4 · Direct-neighbor adjacency matrix</p>
-      </div>
-
-      <p class="math-explain">
-        This is the simplest of the three network relationships: two tracts are connected with a value of 1
-        when they directly share a boundary, and 0 otherwise.
-      </p>
 
       <p class="result-note">
         <strong>Network topology aggregator:</strong> the proposed model uses the network-characteristic data to form a compact
@@ -975,17 +846,10 @@ layout: none
         </p>
       </div>
 
-      <div class="contact-cta">
-        <p>
-          <strong>Want to go deeper into the technical details?</strong><br>
-          If you have questions about the model, experiment, or results, feel free to reach out.
-        </p>
-
-        <div class="hero-links">
-          <a href="mailto:markherna05@gmail.com">Contact me →</a>
-          <a href="project-rideshare-demand-forecasting-clean-metrics-below-image.html">← Back to project overview</a>
-          <a href="projects.html">All projects →</a>
-        </div>
+      <div class="hero-links">
+        <a href="project-rideshare-demand-forecasting-clean-metrics-below-image.html">← Back to project overview</a>
+        <a href="rideshare-demand-report.pdf" target="_blank" rel="noopener">Read the full report →</a>
+        <a href="projects.html">All projects →</a>
       </div>
     </section>
 
